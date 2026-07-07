@@ -1,0 +1,918 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Future Human | Peptide Calculator</title>
+<!-- Google Fonts & Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-lowest": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-highest": "#e1e3e4",
+                        "background": "#f8f9fa",
+                        "on-secondary-fixed": "#002022",
+                        "outline-variant": "#c2c6d4",
+                        "error-container": "#ffdad6",
+                        "tertiary": "#3a4a4a",
+                        "surface-tint": "#005db6",
+                        "on-primary-container": "#c8daff",
+                        "inverse-primary": "#a9c7ff",
+                        "secondary": "#006970",
+                        "on-tertiary-fixed": "#0e1e1e",
+                        "on-tertiary-container": "#cbdddc",
+                        "on-primary": "#ffffff",
+                        "secondary-container": "#7af1fc",
+                        "on-surface-variant": "#424752",
+                        "outline": "#727783",
+                        "surface-variant": "#e1e3e4",
+                        "tertiary-fixed-dim": "#b8cac9",
+                        "on-tertiary-fixed-variant": "#3a4a49",
+                        "surface": "#f8f9fa",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-primary-fixed": "#001b3d",
+                        "on-background": "#191c1d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "secondary-fixed-dim": "#5dd8e2",
+                        "on-error-container": "#93000a",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-bright": "#f8f9fa",
+                        "on-secondary-container": "#006e75",
+                        "primary-container": "#005eb8",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "surface-dim": "#d9dadb",
+                        "surface-container-low": "#f3f4f5",
+                        "tertiary-container": "#526262",
+                        "error": "#ba1a1a",
+                        "on-primary-fixed-variant": "#00468c",
+                        "primary-fixed": "#d6e3ff",
+                        "secondary-fixed": "#7df4ff",
+                        "on-surface": "#191c1d",
+                        "surface-container": "#edeeef",
+                        "tertiary-fixed": "#d4e6e5",
+                        "primary": "#00478d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1200px",
+                        "sm": "12px",
+                        "gutter": "24px",
+                        "xs": "4px",
+                        "md": "24px",
+                        "base": "8px",
+                        "xl": "64px",
+                        "lg": "40px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Manrope", "sans-serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "headline-md": ["Manrope", "sans-serif"],
+                        "body-md": ["Manrope", "sans-serif"],
+                        "label-mono": ["JetBrains Mono", "monospace"],
+                        "data-display": ["Manrope", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "label-mono": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "data-display": ["40px", {"lineHeight": "1.0", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #f8f9fa;
+            color: #191c1d;
+        }
+        .step-transition {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Custom scrollbar for clinical look */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #c2c6d4; border-radius: 10px; }
+        @keyframes shimmer {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+    </style>
+</head>
+<body class="font-body-md text-body-md flex flex-col min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface border-b border-outline-variant h-16 flex items-center px-gutter justify-between max-w-container-max mx-auto w-full">
+<a class="flex items-center gap-2" href="index.html">
+<img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
+</a>
+<div class="flex items-center gap-6">
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-primary border-b-2 border-primary font-medium px-1" href="index.html">Calculator</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors px-1" href="protocols.html">Protocols</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors px-1" href="basics.html">Peptide Basics</a>
+</nav>
+<div class="flex items-center gap-3">
+<a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
+<span class="material-symbols-outlined">help</span>
+</a>
+<button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
+Contact Us
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 pt-16">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-[calc(100vh-64px)] fixed left-0 top-16 w-64 border-r border-outline-variant bg-surface-container-low p-4 z-40">
+<div class="space-y-4">
+  <!-- Our Quality Commitment Card -->
+  <a href="quality_commitment.html" class="block p-4 bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 rounded-xl transition-all duration-300 group">
+    <div class="flex items-center gap-2 mb-2 text-secondary">
+      <span class="material-symbols-outlined text-[20px]">verified</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Quality Assurance</h5>
+    </div>
+    <p class="text-xs font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Our Quality Commitment</p>
+    <p class="text-[11px] text-on-surface-variant leading-relaxed mb-2">Learn about our custom lot production, testing standards, and verification process.</p>
+    <div class="text-[11px] font-bold text-secondary flex items-center gap-1">
+      Read Commitment <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+    </div>
+  </a>
+
+  <!-- Sidebar Blue Contact CTA Card -->
+  <div class="bg-gradient-to-br from-primary to-primary-container text-white p-4 rounded-xl shadow-md space-y-3 hover:-translate-y-0.5 transition-all duration-300">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[20px]">support_agent</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Peptide Sourcing</h5>
+    </div>
+    <p class="text-[11px] text-primary-fixed leading-normal">Looking for a trusted research source? Reach out to check availability.</p>
+    <button class="inquire-btn w-full bg-white text-primary text-xs font-bold py-2 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all duration-200 cursor-pointer">
+      Inquire Availability
+    </button>
+  </div>
+  
+  <!-- Peptide Safety Checklist & Disclaimer -->
+  <a href="safety_checklist.html" class="block p-4 bg-error-container/20 border border-error-container/40 hover:bg-error-container/30 rounded-xl transition-all duration-300 group">
+    <div class="flex items-center gap-2 mb-2 text-error">
+      <span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Safety & Disclaimer</h5>
+    </div>
+    <p class="text-xs font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Peptide Safety Checklist</p>
+    <p class="text-[11px] text-on-surface-variant leading-relaxed mb-2">Read before you use any peptide for research to reduce avoidable risks.</p>
+    <div class="text-[11px] font-bold text-error flex items-center gap-1">
+      View Checklist <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+    </div>
+  </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:ml-64 p-6 md:p-10 max-w-5xl mx-auto w-full">
+<div class="mb-10">
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden mb-8">
+<div class="bg-primary h-full w-1/4 transition-all duration-500"></div>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Reconstitution Guide</h1>
+<p class="text-on-surface-variant max-w-2xl">A precision tool for researchers to determine accurate reconstitution volumes and syringe measurements based on specific vial strengths.</p>
+</div>
+
+<!-- Blue Contact CTA Card (Full Width / Entire Row) -->
+<section class="bg-gradient-to-r from-primary to-primary-container text-white p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 mb-8 w-full">
+  <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+    <div class="p-3 bg-white/10 rounded-full text-white flex items-center justify-center">
+      <span class="material-symbols-outlined text-[32px]">support_agent</span>
+    </div>
+    <div class="space-y-1">
+      <h4 class="text-headline-md font-headline-md font-bold">Looking for a trusted research peptide source?</h4>
+      <p class="text-sm text-primary-fixed leading-relaxed">Reach out to check availability or ask any questions before placing an order.</p>
+    </div>
+  </div>
+  <button class="inquire-btn whitespace-nowrap bg-white text-primary font-bold py-3 px-6 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all duration-200 shadow cursor-pointer">
+    Send Message
+  </button>
+</section>
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Wizard Column -->
+<div class="lg:col-span-7 space-y-8">
+<!-- Step 1: Peptide Selection -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm" id="vial">
+<label class="block font-label-mono text-label-mono text-on-surface-variant mb-3">STEP 1: SELECT PEPTIDE</label>
+<div class="relative group">
+<select id="peptide-select" class="w-full h-14 pl-12 pr-4 bg-surface-container-low border border-outline rounded-lg appearance-none focus:ring-2 focus:ring-primary focus:border-primary transition-all">
+<option value="GHK-Cu">GHK-Cu</option>
+<option value="Retatrutide" selected>Retatrutide</option>
+<option value="BPC-157">BPC-157</option>
+<option value="MOTS-C">MOTS-C</option>
+<option value="PT-141">PT-141</option>
+<option value="ARA-290">ARA-290</option>
+</select>
+<span class="material-symbols-outlined absolute left-4 top-4 text-primary">biotech</span>
+<span class="material-symbols-outlined absolute right-4 top-4 text-outline pointer-events-none">expand_more</span>
+</div>
+</section>
+<!-- Step 2: Vial Strength -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm" id="dosage">
+<label class="block font-label-mono text-label-mono text-on-surface-variant mb-3">STEP 2: VIAL STRENGTH (MG)</label>
+<div id="vial-presets" class="flex flex-wrap gap-3 mb-3">
+<!-- Preset buttons dynamically generated -->
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-lg border border-dashed border-outline">
+<span class="material-symbols-outlined text-outline">scale</span>
+<div class="flex-1">
+<label class="text-xs text-on-surface-variant uppercase font-bold block mb-1">Custom Vial Strength</label>
+<input id="custom-vial-strength" class="w-full bg-transparent border-none p-0 text-xl font-bold focus:ring-0" type="number" placeholder="Enter custom mg">
+</div>
+<span class="text-on-surface-variant font-bold">MG</span>
+</div>
+</section>
+<!-- Step 3: Reconstitution -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm" id="reconstitution">
+<label class="block font-label-mono text-label-mono text-on-surface-variant mb-4">STEP 3: RECONSTITUTION WATER</label>
+<div class="flex gap-4 mb-4">
+<button id="tab-easy" class="flex-1 py-3 text-center rounded-lg border-2 font-bold transition-all border-primary bg-primary/5 text-primary">1mL (Default)</button>
+<button id="tab-custom" class="flex-1 py-3 text-center rounded-lg border-2 font-bold transition-all border-outline-variant hover:border-primary text-on-surface-variant">Custom</button>
+</div>
+<div id="easy-math-recommendation" class="p-4 bg-primary/5 border border-primary/20 rounded-lg text-sm text-primary mb-4 leading-relaxed">
+This default 1mL reconstitution is a standard reference only and not a medical recommendation.
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-lg border border-dashed border-outline">
+<span class="material-symbols-outlined text-outline">water_drop</span>
+<div class="flex-1">
+<label class="text-xs text-on-surface-variant uppercase font-bold block mb-1">Water Added</label>
+<input id="water-input" class="w-full bg-transparent border-none p-0 text-xl font-bold focus:ring-0" type="number" step="0.1" value="2.0">
+</div>
+<span class="text-on-surface-variant font-bold">mL</span>
+</div>
+</section>
+<!-- Step 4: Research Amount -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<label class="block font-label-mono text-label-mono text-on-surface-variant">STEP 4: RESEARCH AMOUNT</label>
+</div>
+<p class="text-xs text-on-surface-variant mb-3 leading-relaxed">
+<strong>Common Research Amounts:</strong> These values are provided for educational purposes based on published literature and commonly discussed research protocols. They are not medical recommendations.
+</p>
+<div id="amount-presets" class="flex flex-wrap gap-3 mb-4">
+<!-- Preset buttons dynamically generated -->
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-low rounded-lg border border-dashed border-outline">
+<span class="material-symbols-outlined text-outline">history_edu</span>
+<div class="flex-1">
+<label class="text-xs text-on-surface-variant uppercase font-bold block mb-1">Custom Amount</label>
+<input id="custom-amount" class="w-full bg-transparent border-none p-0 text-xl font-bold focus:ring-0" step="0.1" type="number" value="2.0">
+</div>
+<span id="amount-unit-label" class="text-on-surface-variant font-bold">MG</span>
+</div>
+</section></div>
+<!-- Results Sidebar (Live) -->
+<div class="lg:col-span-5 space-y-8" id="results">
+<div class="sticky top-24 space-y-8">
+<!-- Card 1: Reconstitution with Live Calculation Results Header -->
+<div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-md hover:-translate-y-1 hover:shadow-lg transition-all duration-300 overflow-hidden">
+  <div class="bg-tertiary text-on-tertiary p-2 text-center text-[10px] tracking-widest font-bold uppercase">Live Calculation Results</div>
+  <div class="p-6">
+    <div class="flex items-center gap-2 text-primary font-bold mb-3">
+      <span class="material-symbols-outlined">water_drop</span>
+      <span>1. RECONSTITUTION</span>
+    </div>
+    <div class="grid grid-cols-3 gap-2 text-center mb-4">
+      <div class="bg-surface-container-low p-2 rounded">
+        <p class="text-[10px] text-on-surface-variant uppercase font-semibold">Vial Strength</p>
+        <p id="res-vial" class="text-sm font-bold text-on-surface">-</p>
+      </div>
+      <div class="bg-surface-container-low p-2 rounded">
+        <p class="text-[10px] text-on-surface-variant uppercase font-semibold">Water Added</p>
+        <p id="res-water" class="text-sm font-bold text-on-surface">-</p>
+      </div>
+      <div class="bg-surface-container-low p-2 rounded">
+        <p class="text-[10px] text-on-surface-variant uppercase font-semibold">Concentration</p>
+        <p id="res-conc" class="text-sm font-bold text-primary">-</p>
+      </div>
+    </div>
+    <p id="res-plain-english" class="text-xs text-on-surface-variant bg-surface-container-low p-3 rounded leading-relaxed italic">
+      Every 1 mL contains - of peptide.
+    </p>
+  </div>
+</div>
+
+<!-- Card 2: Measurement -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-md hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+<div class="flex items-center gap-2 text-primary font-bold mb-4">
+<span class="material-symbols-outlined">colorize</span>
+<span>2. MEASUREMENT</span>
+</div>
+<div class="flex items-start justify-between bg-primary-container p-4 rounded-xl shadow-inner mb-4 text-white">
+<div>
+<p class="text-primary-fixed text-xs font-semibold uppercase tracking-wider mb-1">Volume to Draw</p>
+<h2 id="res-draw-ml" class="font-data-display text-3xl font-bold leading-none">-</h2>
+</div>
+<div class="text-right">
+<p class="text-primary-fixed text-xs font-semibold uppercase tracking-wider mb-1">Syringe Units</p>
+<h2 id="res-draw-units" class="font-data-display text-3xl font-bold leading-none text-secondary-fixed">-</h2>
+</div>
+</div>
+<p class="text-[10px] text-on-surface-variant italic text-center">Calculated for standard 100-unit insulin syringe (U-100 where 1 mL = 100 IU)</p>
+</div>
+
+<!-- Card 3: Vial Duration -->
+<div class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-md hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+<div class="flex items-center gap-2 text-primary font-bold mb-4">
+<span class="material-symbols-outlined">calendar_today</span>
+<span>3. VIAL DURATION</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between items-center text-sm border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Total Peptide:</span>
+<span id="dur-total" class="font-bold text-on-surface">-</span>
+</div>
+<div class="flex justify-between items-center text-sm border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Research Amount:</span>
+<span id="dur-amount" class="font-bold text-on-surface">-</span>
+</div>
+<div class="flex justify-between items-center text-sm border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">Frequency:</span>
+<span id="dur-freq" class="font-bold text-on-surface">-</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-secondary-container/20 rounded-lg border border-secondary-container">
+<span class="text-on-secondary-container font-semibold">Estimated Duration:</span>
+<span id="dur-est" class="font-bold text-secondary text-lg">-</span>
+</div>
+
+<!-- Comparison block start -->
+<div class="mt-4 pt-4 border-t border-outline-variant text-xs space-y-2">
+  <div class="font-bold text-on-surface uppercase tracking-wider text-[10px]">Typical Weekly Dose Comparison</div>
+  <div class="flex justify-between">
+    <span class="text-on-surface-variant">Typical Weekly Range:</span>
+    <span id="dur-typical-range" class="font-semibold text-on-surface">-</span>
+  </div>
+  <div class="flex justify-between">
+    <span class="text-on-surface-variant">Your Calculated Weekly:</span>
+    <span id="dur-calculated-weekly" class="font-semibold text-on-surface">-</span>
+  </div>
+  <div id="dur-typical-status" class="p-2 rounded text-center font-bold mt-2 text-xs">
+    -
+  </div>
+  <div id="dur-protocol-notes" class="p-3 bg-surface-container-low text-on-surface-variant rounded leading-relaxed text-[11px] mt-2 border border-outline-variant">
+    -
+  </div>
+</div>
+<!-- Comparison block end -->
+
+</div>
+</div>
+
+<!-- Reconstitution Guide Card -->
+<a href="reconstitution_guide.html" class="block p-5 bg-gradient-to-br from-primary/10 via-surface-container-lowest to-secondary/10 border-l-4 border-l-primary border-y border-r border-outline-variant rounded-r-xl rounded-l-md shadow-md hover:-translate-y-1 hover:shadow-lg transition-all duration-300 group active:scale-[0.99] relative overflow-hidden">
+  <div class="absolute inset-y-0 -left-[100%] w-[50%] bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:animate-[shimmer_1.5s_ease-in-out_infinite] pointer-events-none"></div>
+  <div class="flex items-center justify-between">
+    <div class="flex items-center gap-2 text-primary font-bold">
+      <div class="relative flex h-3 w-3">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+      </div>
+      <span class="material-symbols-outlined text-[20px] group-hover:rotate-12 transition-transform duration-200">menu_book</span>
+      <span class="text-xs uppercase tracking-wider">Preparation Guide</span>
+    </div>
+    <span class="material-symbols-outlined text-outline group-hover:translate-x-1 transition-transform duration-200">arrow_forward</span>
+  </div>
+  <p class="text-xs font-bold text-on-surface mt-2 mb-1 group-hover:text-primary transition-colors">Research Peptide Reconstitution Guide</p>
+  <p class="text-[11px] text-on-surface-variant leading-relaxed">Step-by-step instructions on clean workspace preparation, sterile water drawing, dissolving, and storage.</p>
+</a>
+
+<!-- Card 4: Calculation Breakdown -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl shadow-md overflow-hidden hover:-translate-y-1 hover:shadow-lg transition-all duration-300" open>
+<summary class="flex items-center justify-between p-4 cursor-pointer hover:bg-surface-container-low transition-colors select-none">
+<span class="font-bold text-xs text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calculate</span>
+4. WHY THIS MATH?
+</span>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="p-4 bg-surface border-t border-outline-variant space-y-3">
+<div id="math-breakdown" class="p-3 bg-white rounded border border-outline-variant font-label-mono text-[11px] leading-relaxed space-y-2">
+<!-- Formula breakdown lines added here dynamically -->
+</div>
+</div>
+</details>
+
+</div>
+</div>
+</div>
+</main>
+</div>
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-20 w-full py-8">
+  <div class="max-w-container-max mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+    <div class="flex flex-col items-center sm:items-start gap-2">
+      <img src="logo.png" alt="Future Human Logo" class="h-8 w-auto object-contain">
+      <p class="text-on-surface-variant text-xs sm:text-sm">© 2026 Future Human. Professional use only.</p>
+    </div>
+    <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="legal_disclaimer.html">Legal Disclaimer</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="privacy.html">Privacy Policy</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="calculation_methodology.html">Calculation Methodology</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+        // Peptide Configuration Database (updated with Spreadsheet typical doses and notes)
+        const peptideDB = {
+            "GHK-Cu": {
+                vials: [50, 100],
+                suggestedConc: 10, // mg/mL
+                suggestedRecon: {
+                    50: 5,
+                    100: 10
+                },
+                defaultAmount: 1, // mg
+                presets: [0.5, 1, 2], // mg
+                unit: "mg",
+                frequency: "Daily",
+                rangeWeekly: [2.5, 17.5], // mg
+                rangeWeeklyText: "2.5 mg – 17.5 mg",
+                rangeMonthlyText: "10 mg – 75 mg",
+                notes: "Often dosed at 0.5 mg – 2.5 mg daily or 5 days/week. Usually cycled (e.g., 1 month on, 1 month off)."
+            },
+            "Retatrutide": {
+                vials: [5, 10, 15, 20],
+                suggestedConc: 5, // mg/mL
+                suggestedRecon: {
+                    5: 1,
+                    10: 2,
+                    15: 3,
+                    20: 4
+                },
+                defaultAmount: 2, // mg
+                presets: [1, 2, 4], // mg
+                unit: "mg",
+                frequency: "Weekly",
+                rangeWeekly: [1.0, 12.0], // mg
+                rangeWeeklyText: "1 mg – 12 mg",
+                rangeMonthlyText: "4 mg – 48 mg",
+                notes: "Starts at 1 mg/week for titration, increasing every 4 weeks to a maintenance dose of 4 mg, 8 mg, or 12 mg weekly."
+            },
+            "BPC-157": {
+                vials: [10],
+                suggestedConc: 2.5, // mg/mL
+                suggestedRecon: {
+                    10: 4
+                },
+                defaultAmount: 250, // mcg
+                presets: [250, 500], // mcg
+                unit: "mcg",
+                frequency: "Daily",
+                rangeWeekly: [1.75, 3.5], // mg
+                rangeWeeklyText: "1.75 mg – 3.5 mg (1750 – 3500 mcg)",
+                rangeMonthlyText: "7.5 mg – 15 mg",
+                notes: "Commonly dosed at 250 mcg – 500 mcg daily (subcutaneously)."
+            },
+            "MOTS-C": {
+                vials: [10],
+                suggestedConc: 10, // mg/mL
+                suggestedRecon: {
+                    10: 1
+                },
+                defaultAmount: 5, // mg
+                presets: [5, 10], // mg
+                unit: "mg",
+                frequency: "Daily",
+                rangeWeekly: [5.0, 25.0], // mg
+                rangeWeeklyText: "5 mg – 25 mg",
+                rangeMonthlyText: "20 mg – 100 mg",
+                notes: "Often taken as 5 mg three times a week, or up to 5 mg – 10 mg daily for short loading phases."
+            },
+            "PT-141": {
+                vials: [10],
+                suggestedConc: 5, // mg/mL
+                suggestedRecon: {
+                    10: 2
+                },
+                defaultAmount: 1, // mg
+                presets: [1, 2], // mg
+                unit: "mg",
+                frequency: "As Needed",
+                rangeWeekly: [1.0, 3.5], // mg
+                rangeWeeklyText: "1 mg – 3.5 mg (As Needed)",
+                rangeMonthlyText: "4 mg – 14 mg (As Needed)",
+                notes: "Administered strictly on an 'as-needed' basis (1 mg – 1.75 mg per use), typically capped at 2–3 times per week."
+            },
+            "ARA-290": {
+                vials: [10],
+                suggestedConc: 2, // mg/mL
+                suggestedRecon: {
+                    10: 5
+                },
+                defaultAmount: 2, // mg
+                presets: [2, 4], // mg
+                unit: "mg",
+                frequency: "Daily",
+                rangeWeekly: [16.0, 28.0], // mg
+                rangeWeeklyText: "16 mg – 28 mg",
+                rangeMonthlyText: "64 mg – 120 mg",
+                notes: "Standard clinical trial protocol uses 4 mg daily (or 4 times per week) for a 28-day cycle."
+            }
+        };
+
+        // State variables
+        let selectedPeptide = "Retatrutide";
+        let selectedVial = 10; // mg
+        let reconstitutionMode = "easy"; // "easy" or "custom"
+        let waterAdded = 2; // mL
+        let researchAmount = 2; // mg or mcg
+
+        // DOM elements
+        const peptideSelect = document.getElementById('peptide-select');
+        const vialPresetsContainer = document.getElementById('vial-presets');
+        const customVialInput = document.getElementById('custom-vial-strength');
+        const tabEasy = document.getElementById('tab-easy');
+        const tabCustom = document.getElementById('tab-custom');
+        const waterInput = document.getElementById('water-input');
+        const amountPresetsContainer = document.getElementById('amount-presets');
+        const customAmountInput = document.getElementById('custom-amount');
+        const amountUnitLabel = document.getElementById('amount-unit-label');
+        const easyMathRecommendation = document.getElementById('easy-math-recommendation');
+
+        // Results Card elements
+        const resVial = document.getElementById('res-vial');
+        const resWater = document.getElementById('res-water');
+        const resConc = document.getElementById('res-conc');
+        const resPlainEnglish = document.getElementById('res-plain-english');
+        const resDrawMl = document.getElementById('res-draw-ml');
+        const resDrawUnits = document.getElementById('res-draw-units');
+        const durTotal = document.getElementById('dur-total');
+        const durAmount = document.getElementById('dur-amount');
+        const durFreq = document.getElementById('dur-freq');
+        const durEst = document.getElementById('dur-est');
+        const mathBreakdown = document.getElementById('math-breakdown');
+
+        // Range Comparison elements
+        const durTypicalRange = document.getElementById('dur-typical-range');
+        const durCalculatedWeekly = document.getElementById('dur-calculated-weekly');
+        const durTypicalStatus = document.getElementById('dur-typical-status');
+        const durProtocolNotes = document.getElementById('dur-protocol-notes');
+
+        // Initialize App
+        function init() {
+            peptideSelect.value = selectedPeptide;
+            loadPeptideProfile(selectedPeptide);
+            setupEventListeners();
+            calculate();
+        }
+
+        function loadPeptideProfile(peptideName) {
+            const profile = peptideDB[peptideName];
+            if (!profile) return;
+
+            // Load Vials
+            vialPresetsContainer.innerHTML = '';
+            profile.vials.forEach(vialVal => {
+                const btn = document.createElement('button');
+                btn.className = `px-6 py-3 rounded-lg border-2 text-sm font-bold transition-all ${selectedVial === vialVal ? 'border-primary bg-primary-fixed/50 text-primary' : 'border-outline-variant hover:border-primary text-on-surface-variant'}`;
+                btn.textContent = `${vialVal}mg`;
+                btn.addEventListener('click', () => {
+                    selectedVial = vialVal;
+                    customVialInput.value = '';
+                    updateVialSelectionVisuals();
+                    applySuggestedReconstitution();
+                    calculate();
+                });
+                vialPresetsContainer.appendChild(btn);
+            });
+
+            // Unit Label
+            amountUnitLabel.textContent = profile.unit.toUpperCase();
+
+            // Load Research Amount presets
+            amountPresetsContainer.innerHTML = '';
+            profile.presets.forEach(presetVal => {
+                const btn = document.createElement('button');
+                btn.className = `px-6 py-3 rounded-lg border-2 text-sm font-bold transition-all ${researchAmount === presetVal ? 'border-primary bg-primary/5 text-primary' : 'border-outline-variant hover:border-primary text-on-surface-variant'}`;
+                btn.textContent = `${presetVal} ${profile.unit}`;
+                btn.addEventListener('click', () => {
+                    researchAmount = presetVal;
+                    customAmountInput.value = presetVal;
+                    updateResearchAmountVisuals();
+                    calculate();
+                });
+                amountPresetsContainer.appendChild(btn);
+            });
+
+            // Set default research amount
+            researchAmount = profile.defaultAmount;
+            customAmountInput.value = profile.defaultAmount;
+
+            // Pick the first available vial size as default
+            selectedVial = profile.vials[0];
+            customVialInput.value = '';
+            updateVialSelectionVisuals();
+
+            // Setup Suggested Reconstitution
+            applySuggestedReconstitution();
+        }
+
+        function applySuggestedReconstitution() {
+            const profile = peptideDB[selectedPeptide];
+            if (reconstitutionMode === "easy") {
+                easyMathRecommendation.classList.remove('hidden');
+                waterInput.readOnly = true;
+                waterInput.parentElement.parentElement.classList.add('bg-surface-container-high');
+                waterInput.parentElement.parentElement.classList.remove('bg-surface-container-low');
+
+                // Always use 1.0 mL as the default
+                waterAdded = 1.0;
+                waterInput.value = waterAdded;
+            } else {
+                easyMathRecommendation.classList.add('hidden');
+                waterInput.readOnly = false;
+                waterInput.parentElement.parentElement.classList.remove('bg-surface-container-high');
+                waterInput.parentElement.parentElement.classList.add('bg-surface-container-low');
+            }
+        }
+
+        function updateVialSelectionVisuals() {
+            const buttons = vialPresetsContainer.querySelectorAll('button');
+            buttons.forEach(btn => {
+                if (parseInt(btn.textContent) === selectedVial) {
+                    btn.className = 'px-6 py-3 rounded-lg border-2 text-sm font-bold transition-all border-primary bg-primary-fixed/50 text-primary';
+                } else {
+                    btn.className = 'px-6 py-3 rounded-lg border-2 text-sm font-bold transition-all border-outline-variant hover:border-primary text-on-surface-variant';
+                }
+            });
+        }
+
+        function updateResearchAmountVisuals() {
+            const buttons = amountPresetsContainer.querySelectorAll('button');
+            buttons.forEach(btn => {
+                const val = parseFloat(btn.textContent);
+                if (val === researchAmount) {
+                    btn.className = 'px-6 py-3 rounded-lg border-2 text-sm font-bold transition-all border-primary bg-primary/5 text-primary';
+                } else {
+                    btn.className = 'px-6 py-3 rounded-lg border-2 text-sm font-bold transition-all border-outline-variant hover:border-primary text-on-surface-variant';
+                }
+            });
+        }
+
+        function setupEventListeners() {
+            peptideSelect.addEventListener('change', (e) => {
+                selectedPeptide = e.target.value;
+                loadPeptideProfile(selectedPeptide);
+                calculate();
+            });
+
+            customVialInput.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                if (val > 0) {
+                    selectedVial = val;
+                    updateVialSelectionVisuals(); // Deselect presets
+                    applySuggestedReconstitution();
+                    calculate();
+                }
+            });
+
+            tabEasy.addEventListener('click', () => {
+                reconstitutionMode = "easy";
+                tabEasy.className = 'flex-1 py-3 text-center rounded-lg border-2 font-bold transition-all border-primary bg-primary/5 text-primary';
+                tabCustom.className = 'flex-1 py-3 text-center rounded-lg border-2 font-bold transition-all border-outline-variant hover:border-primary text-on-surface-variant';
+                applySuggestedReconstitution();
+                calculate();
+            });
+
+            tabCustom.addEventListener('click', () => {
+                reconstitutionMode = "custom";
+                tabCustom.className = 'flex-1 py-3 text-center rounded-lg border-2 font-bold transition-all border-primary bg-primary/5 text-primary';
+                tabEasy.className = 'flex-1 py-3 text-center rounded-lg border-2 font-bold transition-all border-outline-variant hover:border-primary text-on-surface-variant';
+                applySuggestedReconstitution();
+                calculate();
+            });
+
+            waterInput.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                if (val > 0) {
+                    waterAdded = val;
+                    calculate();
+                }
+            });
+
+            customAmountInput.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                if (val > 0) {
+                    researchAmount = val;
+                    updateResearchAmountVisuals();
+                    calculate();
+                }
+            });
+
+            // Button micro-interactions
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('mousedown', () => {
+                    button.classList.add('scale-95');
+                    button.style.opacity = '0.8';
+                });
+                button.addEventListener('mouseup', () => {
+                    button.classList.remove('scale-95');
+                    button.style.opacity = '1';
+                });
+                button.addEventListener('mouseleave', () => {
+                    button.classList.remove('scale-95');
+                    button.style.opacity = '1';
+                });
+            });
+ 
+            // Trigger Research Access Modal on Contact CTAs
+            document.querySelectorAll('.inquire-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('research-access-modal').showModal();
+                });
+            });
+        }
+
+        // Calculation Core
+        function calculate() {
+            const profile = peptideDB[selectedPeptide];
+            if (!profile) return;
+
+            // 1. Concentration
+            const concentration = selectedVial / waterAdded; // mg/mL
+            
+            // 2. Volume to draw (mL)
+            let researchAmountMg = researchAmount;
+            if (profile.unit === "mcg") {
+                researchAmountMg = researchAmount / 1000;
+            }
+            const volumeToDraw = researchAmountMg / concentration; // mL
+
+            // 3. Syringe Units
+            const syringeUnits = volumeToDraw * 100; // IU
+
+            // 4. Vial Duration & Weekly Total Dose
+            let estimatedDuration = 0;
+            let durationUnit = "days";
+            let weeklyResearchDose = 0; // mg
+
+            if (profile.frequency === "Daily") {
+                estimatedDuration = selectedVial / researchAmountMg;
+                durationUnit = "days";
+                weeklyResearchDose = researchAmountMg * 7;
+            } else if (profile.frequency === "Weekly") {
+                estimatedDuration = selectedVial / researchAmountMg;
+                durationUnit = "weeks";
+                weeklyResearchDose = researchAmountMg * 1;
+            } else {
+                // As Needed / Uses
+                estimatedDuration = selectedVial / researchAmountMg;
+                durationUnit = "uses";
+                // Assuming typical PT-141 as needed is ~2 times/week for comparison
+                weeklyResearchDose = researchAmountMg * 2;
+            }
+
+            // Update UI Cards
+            resVial.textContent = `${selectedVial} mg`;
+            resWater.textContent = `${waterAdded} mL`;
+            resConc.textContent = `${concentration.toFixed(2)} mg/mL`;
+            resPlainEnglish.textContent = `Every 1 mL of reconstituted liquid contains ${concentration.toFixed(2)} mg of ${selectedPeptide}.`;
+
+            resDrawMl.textContent = `${volumeToDraw.toFixed(3)} mL`;
+            resDrawUnits.textContent = `${Math.round(syringeUnits)} IU`;
+
+            durTotal.textContent = `${selectedVial} mg`;
+            durAmount.textContent = `${researchAmount} ${profile.unit}`;
+            durFreq.textContent = profile.frequency;
+            
+            let durText = `${estimatedDuration.toFixed(1)} ${durationUnit}`;
+            if (estimatedDuration % 1 === 0) {
+                durText = `${Math.round(estimatedDuration)} ${durationUnit}`;
+            }
+            durEst.textContent = durText;
+
+            // Typical Range Comparison details
+            durTypicalRange.textContent = profile.rangeWeeklyText;
+            
+            let displayWeeklyText = `${weeklyResearchDose.toFixed(2)} mg`;
+            if (profile.unit === "mcg") {
+                displayWeeklyText = `${weeklyResearchDose.toFixed(2)} mg (${(weeklyResearchDose * 1000).toFixed(0)} mcg)`;
+            }
+            if (profile.frequency === "As Needed") {
+                displayWeeklyText = `${displayWeeklyText} (Assuming 2 uses/week)`;
+            }
+            durCalculatedWeekly.textContent = displayWeeklyText;
+
+            // Range Status styling
+            let statusText = "Within typical range";
+            let statusClass = "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+            
+            if (weeklyResearchDose < profile.rangeWeekly[0]) {
+                statusText = "Below typical range";
+                statusClass = "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400";
+            } else if (weeklyResearchDose > profile.rangeWeekly[1]) {
+                statusText = "Above typical range";
+                statusClass = "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400";
+            }
+            durTypicalStatus.textContent = statusText;
+            durTypicalStatus.className = `p-2 rounded text-center font-bold mt-2 text-xs ${statusClass}`;
+            
+            durProtocolNotes.textContent = profile.notes;
+
+            // Render Math Breakdown (Card 4)
+            mathBreakdown.innerHTML = '';
+            
+            // Step 1: Concentration
+            addBreakdownLine(`#1 Concentration Calculation`, 
+                `${selectedVial} mg ÷ ${waterAdded} mL = ${concentration.toFixed(2)} mg/mL`);
+
+            // Step 2: Draw Volume
+            if (profile.unit === "mcg") {
+                addBreakdownLine(`#2 Convert mcg to mg`, 
+                    `${researchAmount} mcg ÷ 1,000 = ${researchAmountMg.toFixed(3)} mg`);
+                addBreakdownLine(`#3 Dose Volume Calculation`, 
+                    `${researchAmountMg.toFixed(3)} mg ÷ ${concentration.toFixed(2)} mg/mL = ${volumeToDraw.toFixed(3)} mL`);
+            } else {
+                addBreakdownLine(`#2 Dose Volume Calculation`, 
+                    `${researchAmountMg.toFixed(2)} mg ÷ ${concentration.toFixed(2)} mg/mL = ${volumeToDraw.toFixed(3)} mL`);
+            }
+
+            // Step 3: Units
+            addBreakdownLine(profile.unit === "mcg" ? `#4 Syringe Unit Conversion` : `#3 Syringe Unit Conversion`, 
+                `${volumeToDraw.toFixed(3)} mL × 100 = ${Math.round(syringeUnits)} IU`);
+
+            // Step 4: Duration
+            if (profile.frequency === "Daily") {
+                addBreakdownLine(profile.unit === "mcg" ? `#5 Estimated Vial Duration` : `#4 Estimated Vial Duration`, 
+                    `${selectedVial} mg ÷ ${researchAmountMg.toFixed(3)} mg/day = ${durText}`);
+            } else if (profile.frequency === "Weekly") {
+                addBreakdownLine(profile.unit === "mcg" ? `#5 Estimated Vial Duration` : `#4 Estimated Vial Duration`, 
+                    `${selectedVial} mg ÷ ${researchAmountMg.toFixed(3)} mg/week = ${durText}`);
+            } else {
+                addBreakdownLine(profile.unit === "mcg" ? `#5 Estimated Uses` : `#4 Estimated Uses`, 
+                    `${selectedVial} mg ÷ ${researchAmountMg.toFixed(3)} mg/use = ${durText}`);
+            }
+        }
+
+        function addBreakdownLine(title, equation) {
+            const container = document.createElement('div');
+            container.innerHTML = `
+                <p class="mb-1 text-on-surface-variant font-semibold">${title}</p>
+                <p class="font-bold text-primary">${equation}</p>
+                <div class="h-px bg-outline-variant my-2"></div>
+            `;
+            mathBreakdown.appendChild(container);
+        }
+
+        // Run on boot
+        window.addEventListener('DOMContentLoaded', init);
+    </script>
+
+<!-- Research Access Modal Dialog -->
+<dialog id="research-access-modal" class="rounded-xl border border-outline-variant p-6 max-w-md w-full bg-surface text-on-surface shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm focus:outline-none z-50">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-headline-md font-headline-md font-bold text-primary flex items-center gap-2">
+      <span class="material-symbols-outlined">lock</span>
+      Research Access
+    </h3>
+    <button onclick="document.getElementById('research-access-modal').close()" class="p-1 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+  
+  <div class="space-y-4 text-body-md leading-relaxed text-on-surface-variant text-left">
+    <p class="font-bold text-on-surface">Our research materials are not openly listed.</p>
+    <p>
+      Email us at <a href="mailto:futurehumanlabs@gmail.com" class="text-primary font-semibold hover:underline">futurehumanlabs@gmail.com</a><br>
+      Or contact us via Whatsapp <a href="https://wa.me/639204847639" target="_blank" class="text-primary font-semibold hover:underline">+63 920 484 7639</a>
+    </p>
+    
+    <div class="p-4 bg-surface-container-low border border-dashed border-outline rounded-lg text-xs italic leading-normal text-on-surface-variant">
+      Future Human provides educational content and research tools. Any products discussed are intended for laboratory research purposes only and are not approved for human consumption or therapeutic use.
+    </div>
+  </div>
+  
+  <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+    <a href="sms:+639204847639" class="px-5 py-2.5 border border-outline text-on-surface font-bold rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center">
+      Send us a message
+    </a>
+    <a href="mailto:futurehumanlabs@gmail.com" class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-all flex items-center justify-center">
+      Send us an email
+    </a>
+  </div>
+</dialog>
+</body></html>

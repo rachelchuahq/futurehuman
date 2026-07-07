@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Our Quality Commitment | Future Human</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .clinical-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed-variant": "#3a4a49",
+                        "surface-dim": "#d9dadb",
+                        "on-surface-variant": "#424752",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#7af1fc",
+                        "secondary-fixed": "#7df4ff",
+                        "tertiary-fixed-dim": "#b8cac9",
+                        "primary": "#00478d",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-fixed": "#001b3d",
+                        "secondary": "#006970",
+                        "surface-container-low": "#f3f4f5",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "secondary-fixed-dim": "#5dd8e2",
+                        "inverse-primary": "#a9c7ff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#526262",
+                        "on-primary-container": "#c8daff",
+                        "surface-container-highest": "#e1e3e4",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "outline": "#727783",
+                        "tertiary-fixed": "#d4e6e5",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#005eb8",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#006e75",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed": "#0e1e1e",
+                        "on-secondary-fixed": "#002022",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3a4a4a",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-container": "#cbdddc",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-tint": "#005db6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "container-max": "1200px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Manrope", "sans-serif"],
+                        "label-mono": ["JetBrains Mono", "monospace"],
+                        "data-display": ["Manrope", "sans-serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "headline-lg-mobile": ["Manrope", "sans-serif"],
+                        "display-lg": ["Manrope", "sans-serif"],
+                        "headline-md": ["Manrope", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-mono": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "data-display": ["40px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar Shell -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
+    <div class="flex justify-between items-center px-gutter w-full h-16 max-w-container-max mx-auto">
+        <a class="flex items-center gap-2" href="index.html">
+            <img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
+        </a>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="index.html">Calculator</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="protocols.html">Protocols</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="basics.html">Peptide Basics</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
+                <span class="material-symbols-outlined">help</span>
+            </a>
+            <button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
+                Contact Us
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow pt-8 pb-xl px-gutter bg-background mt-16">
+    <div class="max-w-[850px] mx-auto">
+        <!-- Navigation Action -->
+        <div class="mb-6">
+            <a class="inline-flex items-center gap-2 text-primary hover:underline transition-all font-body-md text-body-md group" href="index.html">
+                <span class="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
+                Back to Calculator
+            </a>
+        </div>
+
+        <!-- Breadcrumb Header -->
+        <nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-outline mb-4">
+            <a class="hover:text-primary" href="index.html">Calculator</a>
+            <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+            <span class="text-on-surface-variant">Quality Commitment</span>
+        </nav>
+
+        <!-- Main Article Container -->
+        <article class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 md:p-10 shadow-sm space-y-8">
+            <header class="border-b border-outline-variant pb-6 space-y-4">
+                <div class="flex items-center gap-3 text-secondary">
+                    <span class="material-symbols-outlined text-[36px] font-bold">verified</span>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-on-background">
+                        Our Quality Commitment
+                    </h1>
+                </div>
+                <p class="text-body-lg text-on-surface-variant leading-relaxed font-semibold">
+                    At Future Human, we believe quality is worth waiting for.
+                </p>
+            </header>
+
+            <!-- Production Banner -->
+            <section class="bg-secondary/5 border border-secondary/20 p-5 rounded-xl flex items-start gap-4">
+                <span class="material-symbols-outlined text-secondary text-[28px] shrink-0 mt-0.5">biotech</span>
+                <div class="space-y-2 text-sm leading-relaxed text-on-surface">
+                    <p>We don't keep products sitting on shelves. <strong>Once your order is confirmed, our manufacturing partner begins producing your lot, which is then independently verified before being released for shipment.</strong></p>
+                    <p class="text-on-surface-variant text-xs italic">This approach allows us to provide products from freshly produced lots while maintaining strict quality standards every step of the way.</p>
+                </div>
+            </section>
+
+            <!-- Independent Third-Party Testing -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-outline-variant pb-2">
+                    <span class="material-symbols-outlined text-primary text-[24px]">science</span>
+                    <h3 class="text-xl font-bold text-on-surface">Independent Third-Party Testing</h3>
+                </div>
+                <p class="text-sm text-on-surface-variant">
+                    Before any lot is released, we send <strong>one vial</strong> to an independent third-party laboratory for verification.
+                </p>
+                <div class="space-y-2 text-sm font-semibold">
+                    <p class="text-on-surface-variant mb-1">Every lot is tested for:</p>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div class="flex items-center gap-2 p-3 bg-surface-container-low rounded-lg text-on-surface">
+                            <span class="text-secondary font-bold text-[18px]">✓</span>
+                            <span>Identity</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-3 bg-surface-container-low rounded-lg text-on-surface">
+                            <span class="text-secondary font-bold text-[18px]">✓</span>
+                            <span>Purity</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-3 bg-surface-container-low rounded-lg text-on-surface">
+                            <span class="text-secondary font-bold text-[18px]">✓</span>
+                            <span>Peptide Content (Assay)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 bg-surface-container-low/50 border border-outline-variant/60 rounded-xl flex items-start gap-3">
+                    <span class="material-symbols-outlined text-outline text-[20px] shrink-0 mt-0.5">info</span>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                        In addition, we perform expanded testing—including sterility and endotoxin testing—on a scheduled basis, when qualifying new suppliers, and whenever additional verification is required.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Why Shipping Takes a Little Longer -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-outline-variant pb-2">
+                    <span class="material-symbols-outlined text-primary text-[24px]">hourglass_empty</span>
+                    <h3 class="text-xl font-bold text-on-surface">Why Shipping Takes a Little Longer</h3>
+                </div>
+                <div class="text-sm text-on-surface-variant space-y-3 leading-relaxed">
+                    <p>Because every order is produced specifically for you and independently tested before release, our processing times are longer than companies that keep inventory on the shelf.</p>
+                    <p class="font-medium text-on-surface">We know waiting isn't always ideal, but we'd rather spend the extra time verifying quality than rush products out the door.</p>
+                </div>
+            </section>
+
+            <!-- Quality Through Transparency -->
+            <section class="space-y-4">
+                <div class="flex items-center gap-2 border-b border-outline-variant pb-2">
+                    <span class="material-symbols-outlined text-primary text-[24px]">visibility</span>
+                    <h3 class="text-xl font-bold text-on-surface">Quality Through Transparency</h3>
+                </div>
+                <div class="text-sm text-on-surface-variant space-y-3 leading-relaxed">
+                    <p>Every product is linked to a manufacturing lot and undergoes our quality review before shipment.</p>
+                    <p>By producing in small quantities, independently verifying every lot, and maintaining complete traceability, we're committed to delivering research products with the consistency, quality, and transparency you deserve.</p>
+                </div>
+            </section>
+        </article>
+    </div>
+</main>
+
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-20 w-full py-8">
+  <div class="max-w-container-max mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+    <div class="flex flex-col items-center sm:items-start gap-2">
+      <img src="logo.png" alt="Future Human Logo" class="h-8 w-auto object-contain">
+      <p class="text-on-surface-variant text-xs sm:text-sm">© 2026 Future Human. Professional use only.</p>
+    </div>
+    <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="legal_disclaimer.html">Legal Disclaimer</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="privacy.html">Privacy Policy</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="calculation_methodology.html">Calculation Methodology</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Inquire modal / scripting compatibility -->
+<script>
+    document.querySelectorAll('.inquire-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('Peptide Sourcing Inquiries:\n\nTo inquire about research materials or check batch-specific documentation availability, please email: sourcing@futurehuman.local');
+        });
+    });
+</script>
+</body>
+</html>

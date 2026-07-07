@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Calculation Methodology | Future Human</title>
+<meta content="Technical documentation for peptide calculation formulas and conversion logic." name="description"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Shared Style & Theme Configuration -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container": "#edeeef",
+                    "surface-bright": "#f8f9fa",
+                    "on-tertiary-fixed": "#0e1e1e",
+                    "on-tertiary": "#ffffff",
+                    "on-primary-fixed": "#001b3d",
+                    "error-container": "#ffdad6",
+                    "inverse-surface": "#2e3132",
+                    "tertiary": "#3a4a4a",
+                    "on-tertiary-fixed-variant": "#3a4a49",
+                    "tertiary-container": "#526262",
+                    "secondary-container": "#7af1fc",
+                    "surface": "#f8f9fa",
+                    "inverse-primary": "#a9c7ff",
+                    "secondary-fixed-dim": "#5dd8e2",
+                    "primary-container": "#005eb8",
+                    "surface-container-high": "#e7e8e9",
+                    "secondary": "#006970",
+                    "on-primary-container": "#c8daff",
+                    "surface-variant": "#e1e3e4",
+                    "outline-variant": "#c2c6d4",
+                    "on-error-container": "#93000a",
+                    "outline": "#727783",
+                    "surface-container-highest": "#e1e3e4",
+                    "surface-dim": "#d9dadb",
+                    "primary-fixed": "#d6e3ff",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-primary-fixed-variant": "#00468c",
+                    "on-surface-variant": "#424752",
+                    "on-secondary": "#ffffff",
+                    "on-secondary-fixed-variant": "#004f54",
+                    "surface-tint": "#005db6",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#191c1d",
+                    "on-error": "#ffffff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed": "#7df4ff",
+                    "on-secondary-fixed": "#002022",
+                    "tertiary-fixed": "#d4e6e5",
+                    "surface-container-low": "#f3f4f5",
+                    "tertiary-fixed-dim": "#b8cac9",
+                    "on-background": "#191c1d",
+                    "primary-fixed-dim": "#a9c7ff",
+                    "primary": "#00478d",
+                    "on-tertiary-container": "#cbdddc",
+                    "on-secondary-container": "#006e75",
+                    "on-primary": "#ffffff",
+                    "background": "#f8f9fa"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "container-max": "1200px",
+                    "lg": "40px",
+                    "gutter": "24px",
+                    "base": "8px",
+                    "md": "24px",
+                    "xs": "4px",
+                    "xl": "64px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Manrope", "sans-serif"],
+                    "body-md": ["Manrope", "sans-serif"],
+                    "body-lg": ["Manrope", "sans-serif"],
+                    "headline-lg": ["Manrope", "sans-serif"],
+                    "data-display": ["Manrope", "sans-serif"],
+                    "headline-lg-mobile": ["Manrope", "sans-serif"],
+                    "headline-md": ["Manrope", "sans-serif"],
+                    "label-mono": ["JetBrains Mono", "monospace"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "data-display": ["40px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}],
+                    "label-mono": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .formula-card {
+            background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(248,249,250,1) 100%);
+            border: 1px solid theme('colors.outline-variant');
+            transition: all 0.2s ease;
+        }
+        .formula-card:hover {
+            border-color: theme('colors.primary-container');
+            box-shadow: 0 4px 12px rgba(0, 94, 184, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-md md:px-lg max-w-container-max mx-auto h-16">
+<a class="flex items-center gap-2" href="index.html">
+<img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
+</a>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="index.html">Calculator</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="protocols.html">Protocols</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="basics.html">Peptide Basics</a>
+</nav>
+<div class="flex items-center gap-md">
+<a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
+<span class="material-symbols-outlined">help</span>
+</a>
+<button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
+Contact Us
+</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-xl px-sm md:px-0 flex-grow">
+<div class="max-w-[800px] mx-auto">
+<!-- Breadcrumb -->
+<nav aria-label="Breadcrumb" class="mb-lg">
+<a class="inline-flex items-center gap-xs text-primary hover:underline font-label-mono text-label-mono" href="index.html">
+<span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    BACK TO CALCULATOR
+                </a>
+</nav>
+<!-- Section 1: Introduction -->
+<section class="mb-xl">
+<h1 class="font-display-lg text-display-lg mb-md text-on-surface">Calculation Methodology</h1>
+<div class="prose prose-slate max-w-none">
+<p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+                        The Future Human Peptide Calculator utilizes a deterministic mathematical framework to convert raw chemical quantities into actionable administration data. By standardizing the relationship between lyophilized mass, diluent volume, and target dosage, we provide a consistent baseline for clinical research interpretation.
+                    </p>
+<p class="mt-sm font-body-md text-body-md text-on-surface-variant">
+                        Our algorithm performs multi-stage conversions based on three primary user inputs: total peptide mass (Vial Size), liquid volume used for reconstitution (Bacteriostatic Water/Saline), and the desired research dosage.
+                    </p>
+</div>
+</section>
+<!-- Section 2: Calculated Values Grid -->
+<section class="mb-xl bg-surface-container-low rounded-xl p-md md:p-lg border border-outline-variant">
+<h2 class="font-headline-md text-headline-md mb-lg flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">analytics</span>
+                    Calculated Dimensions
+                </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex gap-md items-start">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">opacity</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-sm font-bold text-on-surface">Concentration (mg/mL)</h3>
+<p class="text-on-surface-variant text-sm">The mass of peptide present in every one milliliter of liquid.</p>
+</div>
+</div>
+<div class="flex gap-md items-start">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">science</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-sm font-bold text-on-surface">Concentration (mcg/mL)</h3>
+<p class="text-on-surface-variant text-sm">The microscopic mass equivalent used for high-precision dosing.</p>
+</div>
+</div>
+<div class="flex gap-md items-start">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">colorize</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-sm font-bold text-on-surface">Volume Required (mL)</h3>
+<p class="text-on-surface-variant text-sm">The exact liquid volume necessary to deliver the target dose.</p>
+</div>
+</div>
+<div class="flex gap-md items-start">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center flex-shrink-0">
+<span class="material-symbols-outlined text-on-primary-container">syringe</span>
+</div>
+<div>
+<h3 class="font-headline-sm text-sm font-bold text-on-surface">Syringe Units</h3>
+<p class="text-on-surface-variant text-sm">Standardized U-100 markings for common insulin syringe types.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Formula Used -->
+<section class="mb-xl">
+<h2 class="font-headline-md text-headline-md mb-md">Mathematical Formulas</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-lg">
+                    The following logic is executed sequentially to ensure precision at every step of the conversion process.
+                </p>
+<div class="space-y-md">
+<!-- Formula 1 -->
+<div class="formula-card p-md rounded-lg">
+<span class="font-label-mono text-label-mono text-primary uppercase block mb-xs">Step 01: Base Concentration</span>
+<div class="font-label-mono text-lg py-sm">
+<span class="text-on-surface">Concentration (mg/mL) = </span>
+<span class="text-primary font-bold">Peptide Amount (mg)</span>
+<span class="text-on-surface-variant"> / </span>
+<span class="text-primary font-bold">Liquid Volume (mL)</span>
+</div>
+</div>
+<!-- Formula 2 -->
+<div class="formula-card p-md rounded-lg">
+<span class="font-label-mono text-label-mono text-primary uppercase block mb-xs">Step 02: Unit Conversion</span>
+<div class="font-label-mono text-lg py-sm">
+<span class="text-on-surface">Concentration (mcg/mL) = </span>
+<span class="text-primary font-bold">Concentration (mg/mL)</span>
+<span class="text-on-surface-variant"> × 1,000</span>
+</div>
+</div>
+<!-- Formula 3 -->
+<div class="formula-card p-md rounded-lg">
+<span class="font-label-mono text-label-mono text-primary uppercase block mb-xs">Step 03: Delivery Volume</span>
+<div class="font-label-mono text-lg py-sm">
+<span class="text-on-surface">Required Volume (mL) = </span>
+<span class="text-primary font-bold">Desired Amount (mcg)</span>
+<span class="text-on-surface-variant"> / </span>
+<span class="text-primary font-bold">Concentration (mcg/mL)</span>
+</div>
+</div>
+<!-- Formula 4 -->
+<div class="formula-card p-md rounded-lg">
+<span class="font-label-mono text-label-mono text-primary uppercase block mb-xs">Step 04: Hardware Calibration</span>
+<div class="font-label-mono text-lg py-sm">
+<span class="text-on-surface">Syringe Units (U-100) = </span>
+<span class="text-primary font-bold">Required Volume (mL)</span>
+<span class="text-on-surface-variant"> × 100</span>
+</div>
+<p class="text-xs text-on-surface-variant mt-sm italic">Note: Formula assumes standard U-100 insulin syringe (1mL = 100 Units).</p>
+</div>
+</div>
+</section>
+<!-- Section 4: Accuracy & Disclaimer -->
+<section class="bg-tertiary-fixed rounded-xl p-lg border border-tertiary-fixed-dim">
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-tertiary text-display-lg" style="font-variation-settings: 'FILL' 1;">info</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-tertiary mb-sm">Verification &amp; Accuracy</h2>
+<p class="font-body-md text-body-md text-on-tertiary-fixed-variant leading-relaxed">
+                            This calculator is provided strictly as an educational resource for clinical research simulations. While our formulas are grounded in standard pharmaceutical mathematics, human error in data entry or hardware variations can lead to incorrect administration. Users must manually verify all calculations before use. Future Human does not guarantee the accuracy of this tool for medical purposes.
+                        </p>
+</div>
+</div>
+</section>
+
+<!-- Quality & Safety Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 mt-8">
+  <!-- Our Quality Commitment Card -->
+  <a href="quality_commitment.html" class="block p-5 bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 rounded-xl transition-all duration-300 group">
+    <div class="flex items-center gap-2 mb-2 text-secondary">
+      <span class="material-symbols-outlined text-[20px]">verified</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Quality Assurance</h5>
+    </div>
+    <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Our Quality Commitment</p>
+    <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Learn about our custom lot production, testing standards, and verification process.</p>
+    <div class="text-xs font-bold text-secondary flex items-center gap-1">
+      Read Commitment <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+    </div>
+  </a>
+
+  <!-- Peptide Safety Checklist & Disclaimer -->
+  <a href="safety_checklist.html" class="block p-5 bg-error-container/20 border border-error-container/40 hover:bg-error-container/30 rounded-xl transition-all duration-300 group">
+    <div class="flex items-center gap-2 mb-2 text-error">
+      <span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Safety & Disclaimer</h5>
+    </div>
+    <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Peptide Safety Checklist</p>
+    <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Read before you use any peptide for research to reduce avoidable risks.</p>
+    <div class="text-xs font-bold text-error flex items-center gap-1">
+      View Checklist <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+    </div>
+  </a>
+</div>
+
+<!-- Blue Contact CTA Card -->
+<section class="bg-gradient-to-r from-primary to-primary-container text-white p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 mt-xl">
+  <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+    <div class="p-3 bg-white/10 rounded-full text-white flex items-center justify-center">
+      <span class="material-symbols-outlined text-[32px]">support_agent</span>
+    </div>
+    <div class="space-y-1">
+      <h4 class="text-headline-md font-headline-md font-bold">Looking for a trusted research peptide source?</h4>
+      <p class="text-sm text-primary-fixed leading-relaxed">Reach out to check availability or ask any questions before placing an order.</p>
+    </div>
+  </div>
+  <button class="inquire-btn whitespace-nowrap bg-white text-primary font-bold py-3 px-6 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all duration-200 shadow cursor-pointer">
+    Send Message
+  </button>
+</section>
+</div>
+</main>
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-20 w-full py-8">
+  <div class="max-w-container-max mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+    <div class="flex flex-col items-center sm:items-start gap-2">
+      <img src="logo.png" alt="Future Human Logo" class="h-8 w-auto object-contain">
+      <p class="text-on-surface-variant text-xs sm:text-sm">© 2026 Future Human. Professional use only.</p>
+    </div>
+    <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="legal_disclaimer.html">Legal Disclaimer</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="privacy.html">Privacy Policy</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="calculation_methodology.html">Calculation Methodology</a>
+    </div>
+  </div>
+</footer>
+<script>
+        // Micro-interaction for scroll fade-in
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-4');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.classList.add('transition-all', 'duration-700', 'opacity-0', 'translate-y-4');
+            observer.observe(section);
+        });
+
+        // Trigger Research Access Modal on Contact CTAs
+        document.querySelectorAll('.inquire-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('research-access-modal').showModal();
+            });
+        });
+    </script>
+
+<!-- Research Access Modal Dialog -->
+<dialog id="research-access-modal" class="rounded-xl border border-outline-variant p-6 max-w-md w-full bg-surface text-on-surface shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm focus:outline-none z-50">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-headline-md font-headline-md font-bold text-primary flex items-center gap-2">
+      <span class="material-symbols-outlined">lock</span>
+      Research Access
+    </h3>
+    <button onclick="document.getElementById('research-access-modal').close()" class="p-1 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+  
+  <div class="space-y-4 text-body-md leading-relaxed text-on-surface-variant text-left">
+    <p class="font-bold text-on-surface">Our research materials are not openly listed.</p>
+    <p>
+      Email us at <a href="mailto:futurehumanlabs@gmail.com" class="text-primary font-semibold hover:underline">futurehumanlabs@gmail.com</a><br>
+      Or contact us via Whatsapp <a href="https://wa.me/639204847639" target="_blank" class="text-primary font-semibold hover:underline">+63 920 484 7639</a>
+    </p>
+    
+    <div class="p-4 bg-surface-container-low border border-dashed border-outline rounded-lg text-xs italic leading-normal text-on-surface-variant">
+      Future Human provides educational content and research tools. Any products discussed are intended for laboratory research purposes only and are not approved for human consumption or therapeutic use.
+    </div>
+  </div>
+  
+  <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+    <a href="sms:+639204847639" class="px-5 py-2.5 border border-outline text-on-surface font-bold rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center">
+      Send us a message
+    </a>
+    <a href="mailto:futurehumanlabs@gmail.com" class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-all flex items-center justify-center">
+      Send us an email
+    </a>
+  </div>
+</dialog>
+</body></html>

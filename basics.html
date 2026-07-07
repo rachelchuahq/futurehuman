@@ -1,0 +1,454 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Peptide Basics | Future Human</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .clinical-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed-variant": "#3a4a49",
+                        "surface-dim": "#d9dadb",
+                        "on-surface-variant": "#424752",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#7af1fc",
+                        "secondary-fixed": "#7df4ff",
+                        "tertiary-fixed-dim": "#b8cac9",
+                        "primary": "#00478d",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-fixed": "#001b3d",
+                        "secondary": "#006970",
+                        "surface-container-low": "#f3f4f5",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "secondary-fixed-dim": "#5dd8e2",
+                        "inverse-primary": "#a9c7ff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#526262",
+                        "on-primary-container": "#c8daff",
+                        "surface-container-highest": "#e1e3e4",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "outline": "#727783",
+                        "tertiary-fixed": "#d4e6e5",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#005eb8",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#006e75",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed": "#0e1e1e",
+                        "on-secondary-fixed": "#002022",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3a4a4a",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-container": "#cbdddc",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-tint": "#005db6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "container-max": "1200px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Manrope", "sans-serif"],
+                        "label-mono": ["JetBrains Mono", "monospace"],
+                        "data-display": ["Manrope", "sans-serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "headline-lg-mobile": ["Manrope", "sans-serif"],
+                        "display-lg": ["Manrope", "sans-serif"],
+                        "headline-md": ["Manrope", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-mono": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "data-display": ["40px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar Shell -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
+<div class="flex justify-between items-center w-full px-md md:px-lg max-w-container-max mx-auto h-16">
+<a class="flex items-center gap-2" href="index.html">
+<img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
+</a>
+<nav class="hidden md:flex items-center gap-lg">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="index.html">Calculator</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="protocols.html">Protocols</a>
+<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1" href="basics.html">Peptide Basics</a>
+</nav>
+<div class="flex items-center gap-md">
+<a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
+<span class="material-symbols-outlined">help</span>
+</a>
+<button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
+Contact Us
+</button>
+</div>
+</div>
+</header>
+<main class="pt-24 pb-xl px-sm md:px-lg flex-grow w-full max-w-container-max mx-auto">
+<div class="max-w-[900px] mx-auto space-y-xl">
+<!-- Hero Title Section -->
+<section class="max-w-3xl">
+<nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-outline mb-4">
+<a class="hover:text-primary" href="index.html">Future Human</a>
+<span class="material-symbols-outlined text-[12px]">chevron_right</span>
+<span class="text-on-surface-variant">Peptide Basics</span>
+</nav>
+<h1 class="text-display-lg font-display-lg text-on-surface mb-md">Peptide Basics</h1>
+<p class="text-body-lg text-on-surface-variant leading-relaxed">
+                Explore key information, regulatory contexts, and preparation methods in structured, easy-to-read accordion blocks.
+            </p>
+</section>
+<!-- Accordions container -->
+<section class="space-y-4">
+<!-- Accordion 1: Are peptides steroids? (Neutral / White) -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300" open>
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">science</span>
+<span>Are peptides steroids?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
+<p>No. Peptides are not steroids. They are short chains of amino acids—the same building blocks that make up proteins. Steroids and peptides work very differently and belong to different classes of compounds.</p>
+</div>
+</details>
+
+<!-- Accordion 2: Are all peptides FDA approved? (Primary highlight) -->
+<details class="group bg-primary/5 border border-primary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">gavel</span>
+<span>Are all peptides FDA approved?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
+<p>No. While a small number of peptide-based medicines have been approved by the U.S. FDA for specific medical conditions, many peptides sold for laboratory research have <strong>not</strong> been approved by the FDA. Research peptides are intended for scientific investigation and are not approved for human consumption.</p>
+<div class="pt-3 border-t border-primary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
+<span class="font-medium">Need research resources for clinical laboratory evaluation?</span>
+<button class="inquire-btn text-primary hover:text-primary/80 font-bold flex items-center gap-1 cursor-pointer">
+                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</details>
+
+<!-- Accordion 3: Online Claims (Neutral) -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">forum</span>
+<span>If people talk about peptides online, does that mean they're proven to work?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
+<p>Not necessarily. Social media, podcasts, and online discussions often share personal experiences, but these are not the same as scientific evidence. Reliable conclusions come from well-designed laboratory studies and clinical trials.</p>
+</div>
+</details>
+
+<!-- Accordion 4: Research designation (Secondary highlight) -->
+<details class="group bg-secondary/5 border border-secondary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary text-[22px]">rule</span>
+<span>Why are these products labeled "For Research Use Only"?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
+<p>Research peptides have not completed the regulatory process required for FDA approval for human use. They are supplied for legitimate laboratory and scientific research and are not intended to diagnose, treat, cure, or prevent any disease.</p>
+<div class="pt-3 border-t border-secondary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
+<span class="font-medium">Request documentation or certificate of analysis for researchers:</span>
+<button class="inquire-btn text-secondary hover:text-secondary/80 font-bold flex items-center gap-1 cursor-pointer">
+                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</details>
+
+<!-- Accordion 5: Natural vs Safe (Neutral) -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
+<span>Does "natural" mean a peptide is safe?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
+<p>No. Whether a compound occurs naturally or is made in a laboratory does not automatically make it safe or appropriate for human use. Safety and effectiveness can only be established through proper scientific research and regulatory review.</p>
+</div>
+</details>
+
+<!-- Accordion 6: Reconstitution (Neutral) -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">water_drop</span>
+<span>What is peptide reconstitution?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
+<p>Reconstitution is the process of adding a sterile liquid to a freeze-dried peptide so it becomes a solution for laboratory research. It changes the concentration of the solution but does not change the total amount of peptide in the vial.</p>
+</div>
+</details>
+
+<!-- Accordion 7: Peptide Strength (Tertiary highlight) -->
+<details class="group bg-tertiary/5 border border-tertiary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary text-[22px]">opacity</span>
+<span>Does adding more liquid make the peptide stronger?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
+<p>No. Adding more or less liquid only changes the concentration of the solution. The total amount of peptide in the vial stays exactly the same.</p>
+<div class="pt-3 border-t border-tertiary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
+<span class="font-medium">Inquire about chemical compounds availability:</span>
+<button class="inquire-btn text-tertiary hover:text-tertiary-container font-bold flex items-center gap-1 cursor-pointer">
+                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</details>
+
+<!-- Accordion 8: Powder Form (Neutral) -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">ac_unit</span>
+<span>Why do peptides come as a powder?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
+<p>Many peptides are freeze-dried to help improve stability during storage and shipping. They are typically reconstituted before use in laboratory research.</p>
+</div>
+</details>
+
+<!-- Accordion 9: Calculator Role (Neutral) -->
+<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">calculate</span>
+<span>Is your peptide calculator a dosing guide?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
+<p>No. The calculator is a mathematical tool only. It calculates concentration based on the amount of peptide and liquid entered. It does not provide medical advice, treatment recommendations, or guidance for human use.</p>
+</div>
+</details>
+
+<!-- Accordion 10: Education Mission (Primary highlight) -->
+<details class="group bg-primary/5 border border-primary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-[22px]">school</span>
+<span>Why is Future Human focused on education?</span>
+</div>
+<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+</summary>
+<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
+<p>Peptide research is a fast-moving field, and there is a lot of misinformation online. We believe people should have access to clear, science-based educational information while understanding the difference between ongoing research and approved medical treatments.</p>
+<div class="pt-3 border-t border-primary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
+<span class="font-medium">Get in touch with our educational and research support team:</span>
+<button class="inquire-btn text-primary hover:text-primary/80 font-bold flex items-center gap-1 cursor-pointer">
+                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+</div>
+</details>
+</section>
+
+<!-- Quality & Safety Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 mt-8">
+  <!-- Our Quality Commitment Card -->
+  <a href="quality_commitment.html" class="block p-5 bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 rounded-xl transition-all duration-300 group">
+    <div class="flex items-center gap-2 mb-2 text-secondary">
+      <span class="material-symbols-outlined text-[20px]">verified</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Quality Assurance</h5>
+    </div>
+    <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Our Quality Commitment</p>
+    <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Learn about our custom lot production, testing standards, and verification process.</p>
+    <div class="text-xs font-bold text-secondary flex items-center gap-1">
+      Read Commitment <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+    </div>
+  </a>
+
+  <!-- Peptide Safety Checklist & Disclaimer -->
+  <a href="safety_checklist.html" class="block p-5 bg-error-container/20 border border-error-container/40 hover:bg-error-container/30 rounded-xl transition-all duration-300 group">
+    <div class="flex items-center gap-2 mb-2 text-error">
+      <span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
+      <h5 class="text-xs font-bold uppercase tracking-wider">Safety & Disclaimer</h5>
+    </div>
+    <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Peptide Safety Checklist</p>
+    <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Read before you use any peptide for research to reduce avoidable risks.</p>
+    <div class="text-xs font-bold text-error flex items-center gap-1">
+      View Checklist <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+    </div>
+  </a>
+</div>
+
+<!-- Blue Contact CTA Card -->
+<section class="bg-gradient-to-r from-primary to-primary-container text-white p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+  <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+    <div class="p-3 bg-white/10 rounded-full text-white flex items-center justify-center">
+      <span class="material-symbols-outlined text-[32px]">support_agent</span>
+    </div>
+    <div class="space-y-1">
+      <h4 class="text-headline-md font-headline-md font-bold">Looking for a trusted research peptide source?</h4>
+      <p class="text-sm text-primary-fixed leading-relaxed">Reach out to check availability or ask any questions before placing an order.</p>
+    </div>
+  </div>
+  <button class="inquire-btn whitespace-nowrap bg-white text-primary font-bold py-3 px-6 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all duration-200 shadow cursor-pointer">
+    Send Message
+  </button>
+</section>
+
+<!-- Important Disclaimer Section -->
+<section class="bg-error-container/30 border border-error/20 p-6 md:p-10 rounded-xl leading-relaxed text-on-surface space-y-4">
+<h3 class="text-headline-md font-headline-md font-bold text-error flex items-center gap-2">
+<span class="material-symbols-outlined">warning</span>
+                Important Disclaimer
+            </h3>
+<p class="font-medium">
+                The information on this website is provided for educational and informational purposes only.
+            </p>
+<p class="text-sm text-on-surface-variant">
+                The research materials offered by Future Human are <strong>for laboratory research use only</strong>. They are <strong>not approved by the U.S. FDA for human consumption</strong> and are <strong>not intended to diagnose, treat, cure, or prevent any disease</strong>.
+            </p>
+<p class="text-sm text-on-surface-variant">
+                Scientific research is constantly evolving. If a peptide has not received FDA approval for a specific use, its safety and effectiveness for that use have not been established through the full regulatory process. Always rely on peer-reviewed scientific literature, follow applicable laws and regulations, and observe appropriate laboratory safety practices when conducting research.
+            </p>
+</section>
+</div>
+</main>
+
+<!-- Research Access Modal Dialog -->
+<dialog id="research-access-modal" class="rounded-xl border border-outline-variant p-6 max-w-md w-full bg-surface text-on-surface shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm focus:outline-none">
+  <div class="flex justify-between items-start mb-4">
+    <h3 class="text-headline-md font-headline-md font-bold text-primary flex items-center gap-2">
+      <span class="material-symbols-outlined">lock</span>
+      Research Access
+    </h3>
+    <button onclick="document.getElementById('research-access-modal').close()" class="p-1 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center">
+      <span class="material-symbols-outlined text-[20px]">close</span>
+    </button>
+  </div>
+  
+  <div class="space-y-4 text-body-md leading-relaxed text-on-surface-variant text-left">
+    <p class="font-bold text-on-surface">Our research materials are not openly listed.</p>
+    <p>
+      Email us at <a href="mailto:futurehumanlabs@gmail.com" class="text-primary font-semibold hover:underline">futurehumanlabs@gmail.com</a><br>
+      Or contact us via Whatsapp <a href="https://wa.me/639204847639" target="_blank" class="text-primary font-semibold hover:underline">+63 920 484 7639</a>
+    </p>
+    
+    <div class="p-4 bg-surface-container-low border border-dashed border-outline rounded-lg text-xs italic leading-normal text-on-surface-variant">
+      Future Human provides educational content and research tools. Any products discussed are intended for laboratory research purposes only and are not approved for human consumption or therapeutic use.
+    </div>
+  </div>
+  
+  <div class="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+    <a href="sms:+639204847639" class="px-5 py-2.5 border border-outline text-on-surface font-bold rounded-lg hover:bg-surface-container-low transition-all flex items-center justify-center">
+      Send us a message
+    </a>
+    <a href="mailto:futurehumanlabs@gmail.com" class="px-5 py-2.5 bg-primary text-on-primary font-bold rounded-lg hover:opacity-90 transition-all flex items-center justify-center">
+      Send us an email
+    </a>
+  </div>
+</dialog>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-20 w-full py-8">
+  <div class="max-w-container-max mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+    <div class="flex flex-col items-center sm:items-start gap-2">
+      <img src="logo.png" alt="Future Human Logo" class="h-8 w-auto object-contain">
+      <p class="text-on-surface-variant text-xs sm:text-sm">© 2026 Future Human. Professional use only.</p>
+    </div>
+    <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="legal_disclaimer.html">Legal Disclaimer</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="privacy.html">Privacy Policy</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="calculation_methodology.html">Calculation Methodology</a>
+    </div>
+  </div>
+</footer>
+<script>
+        // Micro-interactions
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.98)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = 'scale(1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+
+        // Trigger Research Access Modal on Contact CTAs
+        document.querySelectorAll('.inquire-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('research-access-modal').showModal();
+            });
+        });
+    </script>
+</body></html>
