@@ -84,8 +84,8 @@ window.addEventListener('DOMContentLoaded', () => {
         if (e.target === drawer) closeDrawer();
     });
 
-    // Wire contact button inside mobile menu
-    drawer.querySelectorAll('.inquire-btn').forEach(btn => {
+    // Wire contact button inside mobile menu and across the entire page
+    document.querySelectorAll('.inquire-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             closeDrawer();
