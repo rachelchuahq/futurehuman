@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Complete ARA-290 Starter Guide | Future Human</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .clinical-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed-variant": "#3a4a49",
+                        "surface-dim": "#d9dadb",
+                        "on-surface-variant": "#424752",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#7af1fc",
+                        "secondary-fixed": "#7df4ff",
+                        "tertiary-fixed-dim": "#b8cac9",
+                        "primary": "#00478d",
+                        "surface-container-high": "#e7e8e9",
+                        "on-primary-fixed": "#001b3d",
+                        "secondary": "#006970",
+                        "surface-container-low": "#f3f4f5",
+                        "on-error": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "secondary-fixed-dim": "#5dd8e2",
+                        "inverse-primary": "#a9c7ff",
+                        "on-primary-fixed-variant": "#00468c",
+                        "on-background": "#191c1d",
+                        "on-primary": "#ffffff",
+                        "tertiary-container": "#526262",
+                        "on-primary-container": "#c8daff",
+                        "surface-container-highest": "#e1e3e4",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "background": "#f8f9fa",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "outline": "#727783",
+                        "tertiary-fixed": "#d4e6e5",
+                        "inverse-surface": "#2e3132",
+                        "primary-container": "#005eb8",
+                        "outline-variant": "#c2c6d4",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#006e75",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "primary-fixed-dim": "#a9c7ff",
+                        "primary-fixed": "#d6e3ff",
+                        "on-tertiary-fixed": "#0e1e1e",
+                        "on-secondary-fixed": "#002022",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#3a4a4a",
+                        "surface-bright": "#f8f9fa",
+                        "on-tertiary-container": "#cbdddc",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-tint": "#005db6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "40px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "xs": "4px",
+                        "xl": "64px",
+                        "container-max": "1200px",
+                        "md": "24px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Manrope", "sans-serif"],
+                        "label-mono": ["JetBrains Mono", "monospace"],
+                        "data-display": ["Manrope", "sans-serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "headline-lg-mobile": ["Manrope", "sans-serif"],
+                        "display-lg": ["Manrope", "sans-serif"],
+                        "headline-md": ["Manrope", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-mono": ["14px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "data-display": ["40px", {"lineHeight": "1.0", "fontWeight": "700"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar Shell -->
+<header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
+    <div class="flex justify-between items-center px-gutter w-full h-16 max-w-container-max mx-auto">
+        <a class="flex items-center gap-2" href="index.html">
+            <img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
+        </a>
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="index.html">Calculator</a>
+            <a class="text-primary border-b-2 border-primary font-bold pb-1 font-body-md hover:text-primary transition-colors" href="protocols.html">Protocols</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors font-medium" href="basics.html">Peptide Basics</a>
+        </nav>
+        <div class="flex items-center gap-4">
+            <a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
+                <span class="material-symbols-outlined">help</span>
+            </a>
+            <button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
+                Contact Us
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="flex-grow pt-8 pb-xl px-gutter bg-background mt-16">
+    <div class="max-w-[850px] mx-auto">
+        <!-- Navigation Action -->
+        <div class="mb-6">
+            <a class="inline-flex items-center gap-2 text-primary hover:underline transition-all font-body-md text-body-md group" href="protocols.html">
+                <span class="material-symbols-outlined transition-transform group-hover:-translate-x-1">arrow_back</span>
+                Back to Protocols
+            </a>
+        </div>
+
+        <!-- Breadcrumb Header -->
+        <nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-outline mb-4">
+            <a class="hover:text-primary" href="protocols.html">Protocols</a>
+            <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+            <span class="text-on-surface-variant">ARA-290 Guide</span>
+        </nav>
+
+        <!-- Main Article Container -->
+        <article class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 md:p-10 shadow-sm space-y-8">
+            <header class="border-b border-outline-variant pb-6 space-y-4">
+                <div class="flex items-center gap-3 text-primary">
+                    <span class="material-symbols-outlined text-[36px] font-bold">biotech</span>
+                    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-on-background">
+                        Complete ARA-290 Starter Guide
+                    </h1>
+                </div>
+                <div class="p-4 bg-surface-container-low border-l-4 border-primary rounded text-on-surface-variant leading-relaxed text-sm italic">
+                    <strong>For Educational & Research Use Only.</strong> This guide summarizes standard biological research properties of ARA-290 and details proper storage and reconstitution procedures.
+                </div>
+            </header>
+
+            <!-- Section 1: Welcome -->
+            <section class="bg-gradient-to-br from-emerald-50 to-white dark:from-emerald-950/10 dark:to-transparent border border-emerald-100 dark:border-emerald-900/30 p-6 rounded-xl space-y-3">
+                <h3 class="text-lg font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-600">waving_hand</span>
+                    Welcome
+                </h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                    Welcome to your ARA-290 Starter Guide. This guide explains what ARA-290 is, how to prepare and store a lyophilized vial, and what to know before getting started.
+                </p>
+                <div class="p-3 bg-error-container/10 border border-error-container/30 rounded-lg text-xs text-error font-semibold flex items-start gap-2">
+                    <span class="material-symbols-outlined text-[18px]">warning</span>
+                    <div>
+                        <strong>Dosing & Approval Disclaimer:</strong> Unlike approved prescription medications, <strong>ARA-290 (also known as Cibinetide) does not have an FDA-approved prescribing label or a universally accepted human dosing protocol.</strong> This guide is intended for educational purposes and should not replace the advice of a qualified healthcare provider.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: What is ARA-290 -->
+            <section class="space-y-3">
+                <h3 class="text-xl font-bold text-on-surface">What is ARA-290?</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                    ARA-290 is a synthetic **11-amino acid peptide** derived from the tissue-protective region of erythropoietin (EPO).
+                </p>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                    Unlike EPO, ARA-290 was specifically designed <strong class="text-emerald-700 dark:text-emerald-400 font-semibold">not to stimulate red blood cell production</strong>. Instead, it has been studied for its ability to activate the body's <strong class="text-emerald-700 dark:text-emerald-400 font-semibold">innate repair receptor (IRR)</strong>, which plays a role in tissue protection and inflammation resolution.
+                </p>
+            </section>
+
+            <!-- Section 3: What Has ARA-290 Been Studied For? -->
+            <section class="space-y-3">
+                <h3 class="text-xl font-bold text-on-surface">What Has ARA-290 Been Studied For?</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                    Research has explored ARA-290 in areas including:
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-on-surface-variant pl-4">
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Peripheral nerve biology
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Neuropathic pain
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Small fiber neuropathy
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Tissue protection
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Inflammation resolution
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                        Cellular repair pathways
+                    </div>
+                </div>
+                <p class="text-xs text-on-surface-variant italic pt-2">
+                    Several Phase 2 clinical studies have investigated ARA-290, although it remains an investigational peptide and has not received FDA approval for general clinical use.
+                </p>
+            </section>
+
+            <!-- Section 4: Is There a Standard Dose? -->
+            <section class="bg-error-container/10 border border-error-container/30 p-6 rounded-xl space-y-3">
+                <h3 class="text-lg font-bold text-error flex items-center gap-2">
+                    <span class="material-symbols-outlined">gavel</span>
+                    Is There a Standard Dose?
+                </h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed font-semibold">
+                    No.
+                </p>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                    There is currently <strong class="text-error font-semibold">no universally accepted human dosing guideline</strong> for lyophilized ARA-290.
+                </p>
+                <p class="text-xs text-on-surface-variant leading-relaxed">
+                    Clinical studies have evaluated different treatment schedules depending on the condition being investigated. Because research is still ongoing, there is no single dosing protocol that applies to everyone. Always follow the guidance provided by your qualified healthcare provider or research protocol.
+                </p>
+            </section>
+
+            <!-- Section 5: Choosing the Right Vial -->
+            <section class="space-y-4">
+                <h3 class="text-xl font-bold text-on-surface">Choosing the Right Vial</h3>
+                <p class="text-sm text-on-surface-variant leading-relaxed">
+                    Choose a vial based on the amount outlined in your treatment or research protocol.
+                </p>
+                <div class="p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl space-y-2">
+                    <h4 class="text-sm font-bold text-emerald-800 dark:text-emerald-400">First-Time Users Recommendation:</h4>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">
+                        If you're new to ARA-290, many people prefer to <span class="text-emerald-700 dark:text-emerald-400 font-semibold font-bold">begin with a smaller vial</span> before purchasing larger quantities. This allows you to become familiar with preparation, storage, and handling while minimizing unnecessary waste.
+                    </p>
+                    <p class="text-xs text-on-surface-variant">
+                        Once your protocol has been established, you can determine whether a larger vial size better fits your ongoing needs.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 6: Why Not Buy the Largest Vial? -->
+            <section class="space-y-3">
+                <h3 class="text-xl font-bold text-on-surface">Why Not Buy the Largest Vial?</h3>
+                <div class="text-sm text-on-surface-variant space-y-3 leading-relaxed">
+                    <p>
+                        ARA-290 is supplied as a **lyophilized (freeze-dried) powder** and must be reconstituted before use.
+                    </p>
+                    <p>
+                        Once reconstituted, the vial has a <strong class="text-error font-semibold">recommended beyond-use period</strong>. Although a larger vial contains more peptide, the mixed solution is <strong class="text-error font-semibold">not intended to be stored indefinitely</strong>.
+                    </p>
+                    <p>
+                        Choosing a vial that closely matches your anticipated use can help reduce waste while ensuring the product is used within the recommended storage period.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Section 7: Storage -->
+            <section class="bg-surface border border-outline-variant p-6 rounded-xl space-y-4">
+                <h3 class="text-lg font-bold text-on-surface flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">kitchen</span>
+                    Storage Guidelines
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-sm text-on-surface flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-emerald-600 text-[18px]">ac_unit</span>
+                            Before Reconstitution
+                        </h4>
+                        <ul class="list-disc pl-5 text-xs text-on-surface-variant space-y-1">
+                            <li>Store the unopened lyophilized vial according to the product storage instructions.</li>
+                            <li>When stored correctly, the vial remains usable until its labeled expiration date.</li>
+                        </ul>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-bold text-sm text-on-surface flex items-center gap-1.5">
+                            <span class="material-symbols-outlined text-emerald-600 text-[18px]">refrigerator</span>
+                            After Reconstitution
+                        </h4>
+                        <ul class="list-disc pl-5 text-xs text-on-surface-variant space-y-1">
+                            <li>REFRIGERATE after use.</li>
+                            <li>Follow the recommended beyond-use period after reconstitution.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="p-4 bg-error-container/10 border border-error-container/30 rounded-lg text-xs text-error font-semibold flex items-start gap-2">
+                    <span class="material-symbols-outlined text-[18px]">warning</span>
+                    <div>
+                        <strong>Inspect before each use:</strong> Do not use the reconstituted solution if it appears cloudy, discolored, or contains unexpected floating particles.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 8: Reconstitution Tips -->
+            <section class="bg-emerald-500/5 border border-emerald-500/20 p-6 rounded-xl space-y-4">
+                <h3 class="text-lg font-bold text-emerald-900 dark:text-emerald-300 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-600">water_drop</span>
+                    Reconstitution Tips
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-on-surface-variant">
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 font-bold text-[16px] mt-0.5">check</span>
+                        <p>Allow the vial and diluent to reach room temperature before reconstitution.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 font-bold text-[16px] mt-0.5">check</span>
+                        <p>Inject the diluent <span class="text-emerald-700 dark:text-emerald-400 font-semibold font-bold">slowly down the inside wall</span> of the vial.</p>
+                    </div>
+                    <div class="flex gap-2 text-error font-semibold">
+                        <span class="material-symbols-outlined text-error font-bold text-[16px] mt-0.5">close</span>
+                        <p>Do not shake the vial. Avoid excessive agitation to help preserve peptide integrity.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 font-bold text-[16px] mt-0.5">check</span>
+                        <p>Gently swirl until the powder has completely dissolved.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 9: FAQ -->
+            <section class="space-y-4">
+                <h3 class="text-xl font-bold text-on-surface">Frequently Asked Questions</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-surface rounded-xl border border-outline-variant">
+                        <p class="font-bold text-sm text-on-surface mb-1">How long does a vial last?</p>
+                        <p class="text-xs text-on-surface-variant">This depends on your treatment or research protocol. Once reconstituted, always follow the recommended storage instructions and beyond-use period regardless of how much solution remains.</p>
+                    </div>
+                    <div class="p-4 bg-surface rounded-xl border border-outline-variant">
+                        <p class="font-bold text-sm text-on-surface mb-1">Should I refrigerate my vial?</p>
+                        <p class="text-xs text-on-surface-variant">Yes. Once reconstituted, store the vial under the recommended refrigerated conditions unless otherwise instructed.</p>
+                    </div>
+                    <div class="p-4 bg-surface rounded-xl border border-outline-variant">
+                        <p class="font-bold text-sm text-on-surface mb-1">Can ARA-290 be combined with other peptides?</p>
+                        <p class="text-xs text-on-surface-variant">Only if specifically directed by your healthcare provider or research protocol.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 10: Quick Tips -->
+            <section class="bg-emerald-500/5 border border-emerald-500/20 p-6 rounded-xl space-y-3">
+                <h4 class="font-bold text-emerald-900 dark:text-emerald-300 text-base flex items-center gap-2">
+                    <span class="material-symbols-outlined text-emerald-600">checklist</span>
+                    Quick Tips
+                </h4>
+                <ul class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-xs text-on-surface-variant">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 text-[16px] font-bold">check</span>
+                        There is no universally accepted human dosing protocol for ARA-290.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 text-[16px] font-bold">check</span>
+                        Choose your vial based on your planned treatment or research protocol.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 text-[16px] font-bold">check</span>
+                        Store the lyophilized vial correctly before reconstitution.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 text-[16px] font-bold">check</span>
+                        Refrigerate after reconstitution.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 text-[16px] font-bold">check</span>
+                        Never shake the vial during mixing.
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-emerald-600 text-[16px] font-bold">check</span>
+                        Follow the recommended beyond-use period after reconstitution.
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Important Reminder Warning Block -->
+            <footer class="bg-error-container/10 border-l-4 border-l-error p-6 rounded-r-xl space-y-2">
+                <h4 class="font-bold text-error text-base flex items-center gap-2">
+                    <span class="material-symbols-outlined">gavel</span>
+                    Important Reminder
+                </h4>
+                <p class="text-xs text-on-surface-variant leading-relaxed">
+                    This guide is provided for educational purposes only. ARA-290 (Cibinetide) is an investigational peptide and does not have an FDA-approved prescribing label or standardized human dosing regimen. Always follow the guidance of your qualified healthcare provider regarding preparation, administration, and duration of use.
+                </p>
+            </footer>
+        </article>
+    </div>
+</main>
+
+<footer class="bg-surface-container-lowest border-t border-outline-variant mt-20 w-full py-8">
+  <div class="max-w-container-max mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+    <div class="flex flex-col items-center sm:items-start gap-2">
+      <img src="logo.png" alt="Future Human Logo" class="h-8 w-auto object-contain">
+      <p class="text-on-surface-variant text-xs sm:text-sm">© 2026 Future Human. Professional use only.</p>
+    </div>
+    <div class="flex flex-wrap justify-center sm:justify-end gap-4 sm:gap-6 text-xs sm:text-sm">
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="legal_disclaimer.html">Legal Disclaimer</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="privacy.html">Privacy Policy</a>
+      <a class="text-on-surface-variant hover:text-primary underline transition-colors" href="calculation_methodology.html">Calculation Methodology</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Inquire modal / scripting compatibility -->
+<script>
+    document.querySelectorAll('.inquire-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            alert('Peptide Sourcing Inquiries:\n\nTo inquire about research materials or check batch-specific documentation availability, please email: sourcing@futurehuman.local');
+        });
+    });
+</script>
+</body>
+</html>
