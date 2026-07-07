@@ -1,10 +1,12 @@
-<!DOCTYPE html><html class="light" lang="en"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Peptide Basics | Future Human</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
-<style>
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Peptide Basics Learning Hub | Future Human</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             display: inline-block;
@@ -14,12 +16,23 @@
             font-family: 'Manrope', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
         }
-        .clinical-shadow {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Sticky nav styling */
+        .sticky-nav-active {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
         }
     </style>
-<script id="tailwind-config">
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
@@ -117,269 +130,678 @@
 <body class="bg-background text-on-surface min-h-screen flex flex-col">
 <!-- TopAppBar Shell -->
 <header class="bg-surface border-b border-outline-variant fixed top-0 w-full z-50">
-<div class="flex justify-between items-center w-full px-md md:px-lg max-w-container-max mx-auto h-16">
-<a class="flex items-center gap-2" href="index.html">
-<img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
-</a>
-<nav class="hidden md:flex items-center gap-lg">
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="index.html">Calculator</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="protocols.html">Protocols</a>
-<a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1" href="basics.html">Peptide Basics</a>
-</nav>
-<div class="flex items-center gap-md">
-<a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
-<span class="material-symbols-outlined">help</span>
-</a>
-<button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
-Contact Us
-</button>
-</div>
-</div>
+    <div class="flex justify-between items-center w-full px-md md:px-lg max-w-container-max mx-auto h-16">
+        <a class="flex items-center gap-2" href="index.html">
+            <img src="logo.png" alt="Future Human Logo" class="h-10 w-auto object-contain">
+        </a>
+        <nav class="hidden md:flex items-center gap-lg">
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="index.html">Calculator</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="protocols.html">Protocols</a>
+            <a class="font-body-md text-body-md text-primary font-bold border-b-2 border-primary pb-1" href="basics.html">Peptide Basics</a>
+        </nav>
+        <div class="flex items-center gap-md">
+            <a class="p-2 text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors flex items-center justify-center" href="why_research.html" title="Why Research Use Only?">
+                <span class="material-symbols-outlined">help</span>
+            </a>
+            <button class="inquire-btn px-4 py-2 bg-primary text-on-primary text-sm font-bold rounded-lg hover:opacity-90 active:scale-[0.98] transition-all shadow-sm cursor-pointer whitespace-nowrap">
+                Contact Us
+            </button>
+        </div>
+    </div>
 </header>
-<main class="pt-24 pb-xl px-sm md:px-lg flex-grow w-full max-w-container-max mx-auto">
-<div class="max-w-[900px] mx-auto space-y-xl">
-<!-- Hero Title Section -->
-<section class="max-w-3xl">
-<nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-outline mb-4">
-<a class="hover:text-primary" href="index.html">Future Human</a>
-<span class="material-symbols-outlined text-[12px]">chevron_right</span>
-<span class="text-on-surface-variant">Peptide Basics</span>
-</nav>
-<h1 class="text-display-lg font-display-lg text-on-surface mb-md">Peptide Basics</h1>
-<p class="text-body-lg text-on-surface-variant leading-relaxed">
-                Explore key information, regulatory contexts, and preparation methods in structured, easy-to-read accordion blocks.
+
+<!-- Main Wrapper -->
+<main class="flex-grow pt-16 w-full">
+    <!-- Hero Section -->
+    <section class="max-w-container-max mx-auto px-gutter py-12 md:py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Hero Left -->
+        <div class="space-y-6">
+            <nav class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-outline">
+                <a class="hover:text-primary animate-pulse" href="index.html">Future Human</a>
+                <span class="material-symbols-outlined text-[12px]">chevron_right</span>
+                <span class="text-on-surface-variant">Interactive Learning</span>
+            </nav>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-on-surface leading-tight">
+                Peptide Basics
+            </h1>
+            <p class="text-lg md:text-xl text-on-surface-variant font-medium leading-relaxed">
+                Learn everything about research peptides—one simple lesson at a time.
             </p>
-</section>
-<!-- Accordions container -->
-<section class="space-y-4">
-<!-- Accordion 1: Are peptides steroids? (Neutral / White) -->
-<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300" open>
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">science</span>
-<span>Are peptides steroids?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
-<p>No. Peptides are not steroids. They are short chains of amino acids—the same building blocks that make up proteins. Steroids and peptides work very differently and belong to different classes of compounds.</p>
-</div>
-</details>
+            <p class="text-sm text-on-surface-variant">
+                Select a guided step-by-step pathway from the beginning, or search and browse specific topics directly. Let's make peptide science simple.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+                <button onclick="startGuidedLearning()" class="px-6 py-3.5 bg-primary text-on-primary font-bold rounded-xl shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-300 flex items-center gap-2 cursor-pointer">
+                    <span class="material-symbols-outlined">school</span>
+                    Start Learning
+                </button>
+                <a href="#browse-topics" class="px-6 py-3.5 bg-surface-container-high text-on-surface font-bold rounded-xl hover:bg-surface-container-highest transition-all duration-300 flex items-center gap-2">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    Browse Topics
+                </a>
+            </div>
+        </div>
 
-<!-- Accordion 2: Are all peptides FDA approved? (Primary highlight) -->
-<details class="group bg-primary/5 border border-primary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">gavel</span>
-<span>Are all peptides FDA approved?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
-<p>No. While a small number of peptide-based medicines have been approved by the U.S. FDA for specific medical conditions, many peptides sold for laboratory research have <strong>not</strong> been approved by the FDA. Research peptides are intended for scientific investigation and are not approved for human consumption.</p>
-<div class="pt-3 border-t border-primary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
-<span class="font-medium">Need research resources for clinical laboratory evaluation?</span>
-<button class="inquire-btn text-primary hover:text-primary/80 font-bold flex items-center gap-1 cursor-pointer">
-                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-</button>
-</div>
-</div>
-</details>
+        <!-- Hero Right: Roadmap Diagram -->
+        <div class="bg-surface-container-low border border-outline-variant p-6 md:p-8 rounded-2xl shadow-sm relative overflow-hidden flex flex-col items-center">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-outline mb-6">Learning Path Roadmap</h4>
+            <div class="flex flex-col items-center w-full max-w-sm space-y-3 relative z-10">
+                <!-- Roadmap Item 1 -->
+                <div onclick="openLesson(1)" class="w-full bg-surface-container-lowest border border-outline-variant hover:border-primary p-3 rounded-xl flex items-center gap-3 transition-all cursor-pointer hover:scale-[1.02] shadow-sm">
+                    <span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                    <span class="text-sm font-bold text-on-surface">Peptides Overview</span>
+                    <span class="material-symbols-outlined ml-auto text-emerald-600 text-[18px]">verified</span>
+                </div>
+                <div class="h-4 border-l-2 border-dashed border-outline-variant"></div>
+                <!-- Roadmap Item 2 -->
+                <div onclick="openLesson(3)" class="w-full bg-surface-container-lowest border border-outline-variant hover:border-primary p-3 rounded-xl flex items-center gap-3 transition-all cursor-pointer hover:scale-[1.02] shadow-sm">
+                    <span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                    <span class="text-sm font-bold text-on-surface">What's Inside the Vial?</span>
+                    <span class="material-symbols-outlined ml-auto text-emerald-600 text-[18px]">verified</span>
+                </div>
+                <div class="h-4 border-l-2 border-dashed border-outline-variant"></div>
+                <!-- Roadmap Item 3 -->
+                <div onclick="openLesson(5)" class="w-full bg-surface-container-lowest border border-outline-variant hover:border-primary p-3 rounded-xl flex items-center gap-3 transition-all cursor-pointer hover:scale-[1.02] shadow-sm">
+                    <span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                    <span class="text-sm font-bold text-on-surface">Reconstitution Mixing</span>
+                    <span class="material-symbols-outlined ml-auto text-outline text-[18px]">lock</span>
+                </div>
+                <div class="h-4 border-l-2 border-dashed border-outline-variant"></div>
+                <!-- Roadmap Item 4 -->
+                <div onclick="openLesson(8)" class="w-full bg-surface-container-lowest border border-outline-variant hover:border-primary p-3 rounded-xl flex items-center gap-3 transition-all cursor-pointer hover:scale-[1.02] shadow-sm">
+                    <span class="w-6 h-6 bg-primary/10 text-primary rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                    <span class="text-sm font-bold text-on-surface">Storage & Shelf Life</span>
+                    <span class="material-symbols-outlined ml-auto text-outline text-[18px]">lock</span>
+                </div>
+                <div class="h-4 border-l-2 border-dashed border-outline-variant"></div>
+                <!-- Roadmap Item 5 -->
+                <div onclick="openLesson(11)" class="w-full bg-surface-container-lowest border border-outline-variant hover:border-primary p-3 rounded-xl flex items-center gap-3 transition-all cursor-pointer hover:scale-[1.02] shadow-sm bg-gradient-to-r hover:from-emerald-500/5 hover:to-primary/5">
+                    <span class="w-6 h-6 bg-emerald-500/10 text-emerald-600 rounded-full flex items-center justify-center text-xs font-bold">5</span>
+                    <span class="text-sm font-bold text-on-surface">Future Human Quality</span>
+                    <span class="material-symbols-outlined ml-auto text-outline text-[18px]">lock</span>
+                </div>
+            </div>
+            <!-- Roadmap Background design -->
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-primary/5 rounded-full blur-2xl"></div>
+            <div class="absolute -left-10 -top-10 w-40 h-40 bg-emerald-500/5 rounded-full blur-2xl"></div>
+        </div>
+    </section>
 
-<!-- Accordion 3: Online Claims (Neutral) -->
-<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">forum</span>
-<span>If people talk about peptides online, does that mean they're proven to work?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
-<p>Not necessarily. Social media, podcasts, and online discussions often share personal experiences, but these are not the same as scientific evidence. Reliable conclusions come from well-designed laboratory studies and clinical trials.</p>
-</div>
-</details>
-
-<!-- Accordion 4: Research designation (Secondary highlight) -->
-<details class="group bg-secondary/5 border border-secondary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-secondary text-[22px]">rule</span>
-<span>Why are these products labeled "For Research Use Only"?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
-<p>Research peptides have not completed the regulatory process required for FDA approval for human use. They are supplied for legitimate laboratory and scientific research and are not intended to diagnose, treat, cure, or prevent any disease.</p>
-<div class="pt-3 border-t border-secondary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
-<span class="font-medium">Request documentation or certificate of analysis for researchers:</span>
-<button class="inquire-btn text-secondary hover:text-secondary/80 font-bold flex items-center gap-1 cursor-pointer">
-                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-</button>
-</div>
-</div>
-</details>
-
-<!-- Accordion 5: Natural vs Safe (Neutral) -->
-<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">verified_user</span>
-<span>Does "natural" mean a peptide is safe?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
-<p>No. Whether a compound occurs naturally or is made in a laboratory does not automatically make it safe or appropriate for human use. Safety and effectiveness can only be established through proper scientific research and regulatory review.</p>
-</div>
-</details>
-
-<!-- Accordion 6: Reconstitution (Neutral) -->
-<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">water_drop</span>
-<span>What is peptide reconstitution?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
-<p>Reconstitution is the process of adding a sterile liquid to a freeze-dried peptide so it becomes a solution for laboratory research. It changes the concentration of the solution but does not change the total amount of peptide in the vial.</p>
-</div>
-</details>
-
-<!-- Accordion 7: Peptide Strength (Tertiary highlight) -->
-<details class="group bg-tertiary/5 border border-tertiary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary text-[22px]">opacity</span>
-<span>Does adding more liquid make the peptide stronger?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
-<p>No. Adding more or less liquid only changes the concentration of the solution. The total amount of peptide in the vial stays exactly the same.</p>
-<div class="pt-3 border-t border-tertiary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
-<span class="font-medium">Inquire about chemical compounds availability:</span>
-<button class="inquire-btn text-tertiary hover:text-tertiary-container font-bold flex items-center gap-1 cursor-pointer">
-                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-</button>
-</div>
-</div>
-</details>
-
-<!-- Accordion 8: Powder Form (Neutral) -->
-<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">ac_unit</span>
-<span>Why do peptides come as a powder?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
-<p>Many peptides are freeze-dried to help improve stability during storage and shipping. They are typically reconstituted before use in laboratory research.</p>
-</div>
-</details>
-
-<!-- Accordion 9: Calculator Role (Neutral) -->
-<details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">calculate</span>
-<span>Is your peptide calculator a dosing guide?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-3">
-<p>No. The calculator is a mathematical tool only. It calculates concentration based on the amount of peptide and liquid entered. It does not provide medical advice, treatment recommendations, or guidance for human use.</p>
-</div>
-</details>
-
-<!-- Accordion 10: Education Mission (Primary highlight) -->
-<details class="group bg-primary/5 border border-primary/20 rounded-xl p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-<summary class="flex justify-between items-center font-bold text-headline-md text-on-surface cursor-pointer select-none">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[22px]">school</span>
-<span>Why is Future Human focused on education?</span>
-</div>
-<span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
-</summary>
-<div class="mt-4 text-body-md text-on-surface-variant leading-relaxed pl-8 space-y-4">
-<p>Peptide research is a fast-moving field, and there is a lot of misinformation online. We believe people should have access to clear, science-based educational information while understanding the difference between ongoing research and approved medical treatments.</p>
-<div class="pt-3 border-t border-primary/20 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 text-xs">
-<span class="font-medium">Get in touch with our educational and research support team:</span>
-<button class="inquire-btn text-primary hover:text-primary/80 font-bold flex items-center gap-1 cursor-pointer">
-                        Contact for Research Materials <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
-</button>
-</div>
-</div>
-</details>
-</section>
-
-<!-- Quality & Safety Cards Grid -->
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 mt-8">
-  <!-- Our Quality Commitment Card -->
-  <a href="quality_commitment.html" class="block p-5 bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 rounded-xl transition-all duration-300 group">
-    <div class="flex items-center gap-2 mb-2 text-secondary">
-      <span class="material-symbols-outlined text-[20px]">verified</span>
-      <h5 class="text-xs font-bold uppercase tracking-wider">Quality Assurance</h5>
+    <!-- Sticky Navigation Chips Bar -->
+    <div id="sticky-nav-bar" class="sticky top-16 bg-surface border-b border-outline-variant z-40 transition-all duration-300">
+        <div class="max-w-container-max mx-auto px-gutter py-3 flex items-center gap-3 overflow-x-auto hide-scrollbar">
+            <span class="text-xs font-bold text-outline uppercase tracking-wider shrink-0 mr-2">Jump to:</span>
+            <a href="#journey" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Start Here</a>
+            <a href="#lesson-1" onclick="openLesson(1); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">What are Peptides?</a>
+            <a href="#lesson-4" onclick="openLesson(4); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">BAC Water</a>
+            <a href="#lesson-5" onclick="openLesson(5); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Reconstitution</a>
+            <a href="#lesson-7" onclick="openLesson(7); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Syringes</a>
+            <a href="#lesson-6" onclick="openLesson(6); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Research Amounts</a>
+            <a href="#lesson-8" onclick="openLesson(8); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Storage</a>
+            <a href="#lesson-9" onclick="openLesson(9); return false;" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">COAs</a>
+            <a href="#testing" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Quality Commitment</a>
+            <a href="#faq" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">FAQ</a>
+            <a href="#calculators" class="px-3 py-1.5 bg-surface-container-low hover:bg-primary hover:text-on-primary text-on-surface-variant font-bold text-xs rounded-full whitespace-nowrap transition-all shadow-sm">Calculators</a>
+        </div>
     </div>
-    <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Our Quality Commitment</p>
-    <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Learn about our custom lot production, testing standards, and verification process.</p>
-    <div class="text-xs font-bold text-secondary flex items-center gap-1">
-      Read Commitment <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-    </div>
-  </a>
 
-  <!-- Peptide Safety Checklist & Disclaimer -->
-  <a href="safety_checklist.html" class="block p-5 bg-error-container/20 border border-error-container/40 hover:bg-error-container/30 rounded-xl transition-all duration-300 group">
-    <div class="flex items-center gap-2 mb-2 text-error">
-      <span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
-      <h5 class="text-xs font-bold uppercase tracking-wider">Safety & Disclaimer</h5>
-    </div>
-    <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Peptide Safety Checklist</p>
-    <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Read before you use any peptide for research to reduce avoidable risks.</p>
-    <div class="text-xs font-bold text-error flex items-center gap-1">
-      View Checklist <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
-    </div>
-  </a>
-</div>
+    <!-- Quick Search Widget -->
+    <section class="max-w-container-max mx-auto px-gutter py-8">
+        <div class="bg-surface-container-low border border-outline-variant p-6 rounded-2xl max-w-2xl mx-auto space-y-4">
+            <h4 class="text-sm font-bold text-on-surface text-center">What would you like to learn today?</h4>
+            <div class="relative">
+                <span class="material-symbols-outlined absolute left-4 top-3.5 text-outline">search</span>
+                <input id="lesson-search" oninput="filterLessons()" type="text" placeholder="Search questions (e.g. why is my vial empty, BAC water, reconstitution...)" class="w-full pl-11 pr-4 py-3 rounded-xl border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary bg-surface-container-lowest text-sm outline-none transition-all">
+            </div>
+            <div class="flex flex-wrap justify-center gap-2 text-xs">
+                <span class="text-on-surface-variant self-center">Popular:</span>
+                <button onclick="applySearch('why is my vial empty')" class="px-2.5 py-1 bg-surface-container-high rounded text-on-surface hover:text-primary transition-colors font-medium">Why is my vial empty?</button>
+                <button onclick="applySearch('reconstitute')" class="px-2.5 py-1 bg-surface-container-high rounded text-on-surface hover:text-primary transition-colors font-medium">How do I reconstitute?</button>
+                <button onclick="applySearch('BAC Water')" class="px-2.5 py-1 bg-surface-container-high rounded text-on-surface hover:text-primary transition-colors font-medium">What is BAC Water?</button>
+                <button onclick="applySearch('COA')" class="px-2.5 py-1 bg-surface-container-high rounded text-on-surface hover:text-primary transition-colors font-medium">How to read a COA</button>
+            </div>
+        </div>
+    </section>
 
-<!-- Blue Contact CTA Card -->
-<section class="bg-gradient-to-r from-primary to-primary-container text-white p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
-  <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
-    <div class="p-3 bg-white/10 rounded-full text-white flex items-center justify-center">
-      <span class="material-symbols-outlined text-[32px]">support_agent</span>
-    </div>
-    <div class="space-y-1">
-      <h4 class="text-headline-md font-headline-md font-bold">Looking for a trusted research peptide source?</h4>
-      <p class="text-sm text-primary-fixed leading-relaxed">Reach out to check availability or ask any questions before placing an order.</p>
-    </div>
-  </div>
-  <button class="inquire-btn whitespace-nowrap bg-white text-primary font-bold py-3 px-6 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all duration-200 shadow cursor-pointer">
-    Send Message
-  </button>
-</section>
+    <!-- Section: Guided Learning Journey -->
+    <section id="journey" class="max-w-container-max mx-auto px-gutter py-12 space-y-8">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-on-surface">Start Here: Guided Learning Path</h2>
+            <p class="text-sm text-on-surface-variant max-w-lg mx-auto">Explore each basic concept in a structured roadmap card setup. Complete them to build confidence.</p>
+        </div>
 
-<!-- Important Disclaimer Section -->
-<section class="bg-error-container/30 border border-error/20 p-6 md:p-10 rounded-xl leading-relaxed text-on-surface space-y-4">
-<h3 class="text-headline-md font-headline-md font-bold text-error flex items-center gap-2">
-<span class="material-symbols-outlined">warning</span>
+        <div id="lessons-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Lesson Card 1 -->
+            <div data-title="what are peptides definition" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">science</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">1 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">1. What Are Peptides?</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Discover the fundamental biological definition of peptide chains and how they differ from regular proteins.</p>
+                </div>
+                <button onclick="openLesson(1)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 2 -->
+            <div data-title="research peptides labels fda" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">gavel</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">2 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">2. Research Peptides</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Learn about the regulatory definition, "Research Use Only" parameters, and clinical trial status.</p>
+                </div>
+                <button onclick="openLesson(2)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 3 -->
+            <div data-title="inside the vial lyophilized powder freeze dried" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">ac_unit</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">1 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">3. What's Inside the Vial?</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Why peptides arrive as a vacuum-sealed powder cake and why volume looks small.</p>
+                </div>
+                <button onclick="openLesson(3)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 4 -->
+            <div data-title="bac water bacteriostatic sterile alcohol" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">water_drop</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">2 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">4. Understanding BAC Water</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">What bacteriostatic water is and why its preservative alcohol prevents bacterial growth.</p>
+                </div>
+                <button onclick="openLesson(4)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 5 -->
+            <div data-title="reconstitution mixing dissolve swirling" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">biotech</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">3 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">5. Reconstitution Flow</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">The physical steps for mixing diluent with freeze-dried peptide cake gently without damage.</p>
+                </div>
+                <button onclick="openLesson(5)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 6 -->
+            <div data-title="understanding concentration milligram volume mcg mg" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">calculate</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-700 rounded-full">Intermediate</span>
+                            <span class="text-[10px] font-bold text-outline">3 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">6. Dosing & Concentration</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">How adding liquid changes concentration, but total peptide milligrams in the vial remain identical.</p>
+                </div>
+                <button onclick="openLesson(6)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 7 -->
+            <div data-title="syringes units needle insulin volume" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">colorize</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-700 rounded-full">Intermediate</span>
+                            <span class="text-[10px] font-bold text-outline">2 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">7. Understanding Syringes</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Demystify syringe markings, converting insulin units to mL, and selecting needle gauges.</p>
+                </div>
+                <button onclick="openLesson(7)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 8 -->
+            <div data-title="storage temperature freezer refrigerator shelf life expiration" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">kitchen</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">2 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">8. Storage Rules</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Recommended temperatures and beyond-use timelines before and after mixing peptides.</p>
+                </div>
+                <button onclick="openLesson(8)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 9 -->
+            <div data-title="coa certificate of analysis purity identity testing" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">assignment</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-amber-500/10 text-amber-700 rounded-full">Intermediate</span>
+                            <span class="text-[10px] font-bold text-outline">3 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">9. Reading a COA</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">How to review Certificate of Analysis reports, check purity levels, and verify lab signatures.</p>
+                </div>
+                <button onclick="openLesson(9)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 10 -->
+            <div data-title="batch testing third party purity verification hplc" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-primary-fixed text-primary rounded-xl material-symbols-outlined text-[28px]">verified</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">2 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">10. Batch Testing Importance</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">Why third-party testing HPLC checks are critical for peptide authenticity and safety.</p>
+                </div>
+                <button onclick="openLesson(10)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+
+            <!-- Lesson Card 11 -->
+            <div data-title="future human quality commitment process" class="lesson-card bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between hover:-translate-y-1">
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start">
+                        <span class="p-3 bg-emerald-500/10 text-emerald-600 rounded-xl material-symbols-outlined text-[28px]">workspace_premium</span>
+                        <div class="flex flex-col items-end gap-1">
+                            <span class="text-[10px] font-bold px-2 py-0.5 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+                            <span class="text-[10px] font-bold text-outline">2 min read</span>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-on-surface">11. Our Quality Process</h3>
+                    <p class="text-xs text-on-surface-variant leading-relaxed">How Future Human manufactures, verifies, packs, and delivers research materials securely.</p>
+                </div>
+                <button onclick="openLesson(11)" class="w-full mt-6 py-2.5 bg-primary text-on-primary font-bold text-xs rounded-lg active:scale-95 transition-all cursor-pointer">Start Lesson</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Did You Know? Colorful Quick Fact cards -->
+    <section class="max-w-container-max mx-auto px-gutter py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-br from-amber-50 to-white border border-amber-100 p-5 rounded-xl space-y-2 shadow-sm">
+                <h5 class="text-xs font-bold text-amber-800 uppercase tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">lightbulb</span> Did You Know?
+                </h5>
+                <p class="text-xs text-on-surface-variant leading-relaxed">Your peptide vial may look almost empty because active peptides are measured in milligrams (mg)—the visible powder is often a freeze-dried cake structure.</p>
+            </div>
+            <div class="bg-gradient-to-br from-primary/5 to-white border border-primary/10 p-5 rounded-xl space-y-2 shadow-sm">
+                <h5 class="text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">bolt</span> Stability Fact
+                </h5>
+                <p class="text-xs text-on-surface-variant leading-relaxed">Lyophilized (freeze-dried) powder peptides are highly stable at room temperatures during transit compared to already reconstituted liquid forms.</p>
+            </div>
+            <div class="bg-gradient-to-br from-emerald-50 to-white border border-emerald-100 p-5 rounded-xl space-y-2 shadow-sm">
+                <h5 class="text-xs font-bold text-emerald-800 uppercase tracking-wider flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">verified</span> Handling Tip
+                </h5>
+                <p class="text-xs text-on-surface-variant leading-relaxed">Rolling a vial gently between your palms is the standard method to dissolve reconstituted powder; shaking vigorously can break peptide structures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Browse by Topic Grid -->
+    <section id="browse-topics" class="max-w-container-max mx-auto px-gutter py-12 space-y-8 border-t border-outline-variant">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-on-surface">Browse by Topic</h2>
+            <p class="text-sm text-on-surface-variant max-w-lg mx-auto">Click any topic card to immediately slide open the interactive learning panel or tools.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div onclick="openLesson(1)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">science</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">🧬 Peptide Basics</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Foundational concepts of chemical structures and study fields.</p>
+                </div>
+            </div>
+            <div onclick="openLesson(4)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">water_drop</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">💧 BAC Water</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Solvent safety standards, mixing math, and preservative details.</p>
+                </div>
+            </div>
+            <div onclick="openLesson(5)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">biotech</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">🧪 Reconstitution</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Mixing guides, swirling tips, stopper preparation steps.</p>
+                </div>
+            </div>
+            <div onclick="openLesson(7)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">colorize</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">💉 Syringes & Units</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Learn to convert units, gauge sizes, and measure volumes.</p>
+                </div>
+            </div>
+            <div onclick="openLesson(8)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">kitchen</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">📦 Storage</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Temperature rules, expiration, refrigeration beyond-use dates.</p>
+                </div>
+            </div>
+            <div onclick="openLesson(10)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">verified</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">🔬 Testing</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Milli-Q water testing, validation methods, safety steps.</p>
+                </div>
+            </div>
+            <div onclick="openLesson(9)" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">assignment</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">📄 COAs</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Verify HPLC charts, purity scores, and batch logs.</p>
+                </div>
+            </div>
+            <div href="#faq" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all cursor-pointer group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">help</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">❓ Common Questions</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Instant lookups for the most common research inquiries.</p>
+                </div>
+            </div>
+            <a href="#calculators" class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl hover:border-primary transition-all group shadow-sm flex gap-4">
+                <span class="material-symbols-outlined text-primary text-[32px] group-hover:scale-110 transition-transform">calculate</span>
+                <div>
+                    <h4 class="font-bold text-sm text-on-surface group-hover:text-primary transition-colors">🧮 Calculators</h4>
+                    <p class="text-xs text-on-surface-variant mt-1">Live mathematical tools for peptide preparation.</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Future Human Tools Section -->
+    <section id="calculators" class="max-w-container-max mx-auto px-gutter py-12 space-y-8 border-t border-outline-variant bg-surface-container-low/30 rounded-3xl my-8">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-on-surface">Future Human Tools</h2>
+            <p class="text-sm text-on-surface-variant max-w-lg mx-auto">App-like micro-tools running directly on this page to assist your mathematical planning.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Concentration Live Widget -->
+            <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm space-y-4">
+                <div class="flex items-center gap-2 text-primary font-bold">
+                    <span class="material-symbols-outlined">calculate</span>
+                    <h4 class="text-sm uppercase tracking-wider">Live Concentration Tool</h4>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-on-surface-variant flex justify-between">
+                            <span>Vial Strength (Peptide Amount)</span>
+                            <span id="vial-qty-label" class="text-primary font-mono">10 mg</span>
+                        </label>
+                        <input id="widget-vial-qty" type="range" min="2" max="20" step="1" value="10" oninput="runWidgetCalc()" class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary mt-1">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-on-surface-variant flex justify-between">
+                            <span>BAC Water Volume</span>
+                            <span id="water-vol-label" class="text-primary font-mono">2 mL</span>
+                        </label>
+                        <input id="widget-water-vol" type="range" min="0.5" max="5" step="0.5" value="2" oninput="runWidgetCalc()" class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary mt-1">
+                    </div>
+                    <div class="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center space-y-1">
+                        <p class="text-[10px] uppercase font-bold text-outline">Resulting Solution Concentration</p>
+                        <p id="widget-result" class="text-2xl font-black text-primary font-mono">5 mg / mL</p>
+                        <p class="text-[10px] text-on-surface-variant">(equivalent to 500 mcg per 10 units on a 1 mL syringe)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Syringe Volume Guide Widget -->
+            <div class="bg-surface-container-lowest border border-outline-variant p-6 rounded-2xl shadow-sm space-y-4">
+                <div class="flex items-center gap-2 text-primary font-bold">
+                    <span class="material-symbols-outlined">colorize</span>
+                    <h4 class="text-sm uppercase tracking-wider">Interactive Syringe Units</h4>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold text-on-surface-variant flex justify-between">
+                            <span>Select Syringe Size</span>
+                            <span class="text-primary font-mono font-semibold">100 Unit (1 mL) Syringe</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-on-surface-variant flex justify-between">
+                            <span>Adjust Units Markings</span>
+                            <span id="syringe-units-label" class="text-primary font-mono">50 Units</span>
+                        </label>
+                        <input id="widget-syringe-units" type="range" min="5" max="100" step="5" value="50" oninput="runSyringeWidget()" class="w-full h-2 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary mt-1">
+                    </div>
+                    <div class="p-4 bg-emerald-500/5 rounded-xl border border-emerald-500/10 text-center space-y-1">
+                        <p class="text-[10px] uppercase font-bold text-outline">Liquid Volume Extracted</p>
+                        <p id="syringe-vol-result" class="text-2xl font-black text-emerald-700 font-mono">0.50 mL</p>
+                        <p class="text-[10px] text-on-surface-variant">Commonly used for thin 31G insulin needles</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore by Peptide Grid -->
+    <section class="max-w-container-max mx-auto px-gutter py-12 space-y-8 border-t border-outline-variant">
+        <div class="text-center space-y-2">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-on-surface">Explore by Peptide</h2>
+            <p class="text-sm text-on-surface-variant max-w-lg mx-auto">Select a specific peptide to read its dedicated, comprehensive starter guide details.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <!-- Tirzepatide -->
+            <a href="tirzepatide_guide.html" class="block bg-surface-container-lowest border border-outline-variant hover:border-primary p-4 rounded-xl text-center space-y-2 hover:-translate-y-1 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-primary text-[28px]">scale</span>
+                <p class="text-sm font-extrabold text-on-surface">Tirzepatide</p>
+                <p class="text-[10px] text-outline">2 min read</p>
+            </a>
+            <!-- Retatrutide -->
+            <a href="retatrutide_guide.html" class="block bg-surface-container-lowest border border-outline-variant hover:border-primary p-4 rounded-xl text-center space-y-2 hover:-translate-y-1 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-primary text-[28px]">monitoring</span>
+                <p class="text-sm font-extrabold text-on-surface">Retatrutide</p>
+                <p class="text-[10px] text-outline">3 min read</p>
+            </a>
+            <!-- BPC-157 -->
+            <a href="bpc_157_guide.html" class="block bg-surface-container-lowest border border-outline-variant hover:border-primary p-4 rounded-xl text-center space-y-2 hover:-translate-y-1 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-primary text-[28px]">healing</span>
+                <p class="text-sm font-extrabold text-on-surface">BPC-157</p>
+                <p class="text-[10px] text-outline">2 min read</p>
+            </a>
+            <!-- GHK-Cu -->
+            <a href="ghk_cu_guide.html" class="block bg-surface-container-lowest border border-outline-variant hover:border-primary p-4 rounded-xl text-center space-y-2 hover:-translate-y-1 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-primary text-[28px]">science</span>
+                <p class="text-sm font-extrabold text-on-surface">GHK-Cu</p>
+                <p class="text-[10px] text-outline">2 min read</p>
+            </a>
+            <!-- PT-141 -->
+            <a href="pt141_guide.html" class="block bg-surface-container-lowest border border-outline-variant hover:border-primary p-4 rounded-xl text-center space-y-2 hover:-translate-y-1 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-primary text-[28px]">neurology</span>
+                <p class="text-sm font-extrabold text-on-surface">PT-141</p>
+                <p class="text-[10px] text-outline">2 min read</p>
+            </a>
+            <!-- ARA-290 -->
+            <a href="ara290_guide.html" class="block bg-surface-container-lowest border border-outline-variant hover:border-primary p-4 rounded-xl text-center space-y-2 hover:-translate-y-1 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-primary text-[28px]">biotech</span>
+                <p class="text-sm font-extrabold text-on-surface">ARA-290</p>
+                <p class="text-[10px] text-outline">2 min read</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Standard FAQ Accordion Section -->
+    <section id="faq" class="max-w-container-max mx-auto px-gutter py-12 border-t border-outline-variant">
+        <div class="max-w-3xl mx-auto space-y-6">
+            <div class="text-center space-y-2">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-on-surface">Frequently Asked Questions</h2>
+                <p class="text-sm text-on-surface-variant">Review instant answers to common questions about research peptides.</p>
+            </div>
+            
+            <div class="space-y-4">
+                <details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                    <summary class="flex justify-between items-center font-bold text-base text-on-surface cursor-pointer select-none">
+                        <span>Are peptides steroids?</span>
+                        <span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+                    </summary>
+                    <div class="mt-4 text-xs text-on-surface-variant leading-relaxed pl-4">
+                        No. Peptides are not steroids. They are short chains of amino acids—the same building blocks that make up proteins. Steroids and peptides work very differently and belong to different classes of compounds.
+                    </div>
+                </details>
+                <details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                    <summary class="flex justify-between items-center font-bold text-base text-on-surface cursor-pointer select-none">
+                        <span>Are all peptides FDA approved?</span>
+                        <span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+                    </summary>
+                    <div class="mt-4 text-xs text-on-surface-variant leading-relaxed pl-4">
+                        No. While a small number of peptide-based medicines have been approved by the U.S. FDA for specific medical conditions, many peptides sold for laboratory research have not been approved by the FDA. Research peptides are intended for scientific investigation and are not approved for human consumption.
+                    </div>
+                </details>
+                <details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-300">
+                    <summary class="flex justify-between items-center font-bold text-base text-on-surface cursor-pointer select-none">
+                        <span>Why are these products labeled "For Research Use Only"?</span>
+                        <span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+                    </summary>
+                    <div class="mt-4 text-xs text-on-surface-variant leading-relaxed pl-4">
+                        Research peptides have not completed the regulatory process required for FDA approval for human use. They are supplied for legitimate laboratory and scientific research and are not intended to diagnose, treat, cure, or prevent any disease.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Side-by-side QA / Safety Commitment grid -->
+    <section id="testing" class="max-w-container-max mx-auto px-gutter py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <!-- Our Quality Commitment Card -->
+            <a href="quality_commitment.html" class="block p-5 bg-secondary/10 border border-secondary/20 hover:bg-secondary/20 rounded-xl transition-all duration-300 group">
+                <div class="flex items-center gap-2 mb-2 text-secondary">
+                    <span class="material-symbols-outlined text-[20px]">verified</span>
+                    <h5 class="text-xs font-bold uppercase tracking-wider">Quality Assurance</h5>
+                </div>
+                <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Our Quality Commitment</p>
+                <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Learn about our custom lot production, testing standards, and verification process.</p>
+                <div class="text-xs font-bold text-secondary flex items-center gap-1">
+                    Read Commitment <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                </div>
+            </a>
+
+            <!-- Peptide Safety Checklist & Disclaimer -->
+            <a href="safety_checklist.html" class="block p-5 bg-error-container/20 border border-error-container/40 hover:bg-error-container/30 rounded-xl transition-all duration-300 group">
+                <div class="flex items-center gap-2 mb-2 text-error">
+                    <span class="material-symbols-outlined text-[20px]">shield_with_heart</span>
+                    <h5 class="text-xs font-bold uppercase tracking-wider">Safety & Disclaimer</h5>
+                </div>
+                <p class="text-sm font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Peptide Safety Checklist</p>
+                <p class="text-xs text-on-surface-variant leading-relaxed mb-3">Read before you use any peptide for research to reduce avoidable risks.</p>
+                <div class="text-xs font-bold text-error flex items-center gap-1">
+                    View Checklist <span class="material-symbols-outlined text-[14px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Blue Contact CTA Card -->
+    <section class="max-w-container-max mx-auto px-gutter py-8">
+        <div class="bg-gradient-to-r from-primary to-primary-container text-white p-6 md:p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center justify-between gap-6 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
+            <div class="flex items-center gap-4 text-center md:text-left flex-col md:flex-row">
+                <div class="p-3 bg-white/10 rounded-full text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[32px]">support_agent</span>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-headline-md font-headline-md font-bold">Looking for a trusted research peptide source?</h4>
+                    <p class="text-sm text-primary-fixed leading-relaxed">Reach out to check availability or ask any questions before placing an order.</p>
+                </div>
+            </div>
+            <button class="inquire-btn whitespace-nowrap bg-white text-primary font-bold py-3 px-6 rounded-lg hover:bg-surface-container-low active:scale-[0.98] transition-all duration-200 shadow cursor-pointer">
+                Send Message
+            </button>
+        </div>
+    </section>
+
+    <!-- Important Disclaimer Section -->
+    <section class="max-w-container-max mx-auto px-gutter py-8">
+        <div class="bg-error-container/30 border border-error/20 p-6 md:p-10 rounded-xl leading-relaxed text-on-surface space-y-4">
+            <h3 class="text-headline-md font-headline-md font-bold text-error flex items-center gap-2">
+                <span class="material-symbols-outlined">warning</span>
                 Important Disclaimer
             </h3>
-<p class="font-medium">
-                The information on this website is provided for educational and informational purposes only.
-            </p>
-<p class="text-sm text-on-surface-variant">
-                The research materials offered by Future Human are <strong>for laboratory research use only</strong>. They are <strong>not approved by the U.S. FDA for human consumption</strong> and are <strong>not intended to diagnose, treat, cure, or prevent any disease</strong>.
-            </p>
-<p class="text-sm text-on-surface-variant">
-                Scientific research is constantly evolving. If a peptide has not received FDA approval for a specific use, its safety and effectiveness for that use have not been established through the full regulatory process. Always rely on peer-reviewed scientific literature, follow applicable laws and regulations, and observe appropriate laboratory safety practices when conducting research.
-            </p>
-</section>
-</div>
+            <p class="font-medium">The information on this website is provided for educational and informational purposes only.</p>
+            <p class="text-sm text-on-surface-variant">The research materials offered by Future Human are <strong>for laboratory research use only</strong>. They are <strong>not approved by the U.S. FDA for human consumption</strong> and are <strong>not intended to diagnose, treat, cure, or prevent any disease</strong>.</p>
+            <p class="text-sm text-on-surface-variant">Scientific research is constantly evolving. If a peptide has not received FDA approval for a specific use, its safety and effectiveness for that use have not been established through the full regulatory process. Always rely on peer-reviewed scientific literature, follow applicable laws and regulations, and observe appropriate laboratory safety practices when conducting research.</p>
+        </div>
+    </section>
 </main>
+
+<!-- Interactive Lesson overlay panel / Course Player -->
+<div id="course-player" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex justify-end transition-opacity duration-300">
+    <div class="w-full max-w-[700px] bg-surface min-h-screen shadow-2xl flex flex-col justify-between overflow-y-auto p-6 md:p-8 animate-slide-in">
+        <!-- Lesson Content -->
+        <div class="space-y-6 pb-20">
+            <!-- Back & Exit -->
+            <div class="flex justify-between items-center">
+                <button onclick="closeCoursePlayer()" class="text-xs font-bold text-outline hover:text-primary flex items-center gap-1 cursor-pointer">
+                    <span class="material-symbols-outlined text-[16px]">arrow_back</span> Back to Hub
+                </button>
+                <span id="player-difficulty" class="text-[10px] font-bold px-2.5 py-1 bg-emerald-500/10 text-emerald-700 rounded-full">Beginner</span>
+            </div>
+
+            <!-- Lesson Header -->
+            <div class="border-b border-outline-variant pb-4 space-y-2">
+                <div class="flex items-center gap-3 text-primary">
+                    <span id="player-icon" class="material-symbols-outlined text-[32px]">science</span>
+                    <h2 id="player-title" class="text-2xl font-black text-on-surface">1. What Are Peptides?</h2>
+                </div>
+                <div class="flex gap-4 text-xs text-on-surface-variant font-medium">
+                    <span id="player-time" class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">schedule</span> 1 min read</span>
+                    <span>• Verified Educational Resource</span>
+                </div>
+            </div>
+
+            <!-- Lesson body placeholder wrapper -->
+            <div id="player-body" class="space-y-6">
+                <!-- Content gets injected dynamically by javascript -->
+            </div>
+        </div>
+
+        <!-- Navigation footer inside player -->
+        <div class="border-t border-outline-variant pt-4 bg-surface sticky bottom-0 left-0 right-0 flex items-center justify-between mt-auto">
+            <button id="player-prev-btn" onclick="prevLesson()" class="px-4 py-2 border border-outline text-on-surface font-bold text-xs rounded-lg hover:bg-surface-container-low transition-all cursor-pointer">Previous</button>
+            <button id="player-next-btn" onclick="nextLesson()" class="px-6 py-2 bg-primary text-on-primary font-bold text-xs rounded-lg hover:opacity-90 transition-all cursor-pointer">Next Lesson</button>
+        </div>
+    </div>
+</div>
 
 <!-- Research Access Modal Dialog -->
 <dialog id="research-access-modal" class="rounded-xl border border-outline-variant p-6 max-w-md w-full bg-surface text-on-surface shadow-2xl backdrop:bg-black/50 backdrop:backdrop-blur-sm focus:outline-none">
@@ -429,26 +851,543 @@ Contact Us
     </div>
   </div>
 </footer>
-<script>
-        // Micro-interactions
-        document.querySelectorAll('button, a').forEach(el => {
-            el.addEventListener('mousedown', () => {
-                el.style.transform = 'scale(0.98)';
-            });
-            el.addEventListener('mouseup', () => {
-                el.style.transform = 'scale(1)';
-            });
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = 'scale(1)';
-            });
-        });
 
-        // Trigger Research Access Modal on Contact CTAs
-        document.querySelectorAll('.inquire-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('research-access-modal').showModal();
-            });
+<!-- Lesson Database & Scripts -->
+<script>
+    // Lesson contents database
+    const lessonsData = {
+        1: {
+            title: "1. What Are Peptides?",
+            time: "1 min read",
+            difficulty: "Beginner",
+            icon: "science",
+            summary: "Peptides are short chains of amino acids (typically 2 to 50 amino acids long). They serve as the structural building blocks for proteins, signals, and organic cell processes.",
+            whyItMatters: ["✓ Direct cell signaling", "✓ Fundamental building blocks", "✓ Highly specific binding"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-4">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Interactive Chain Builder</p>
+                    <p class="text-xs text-on-surface-variant">Tap to add amino acids and build a custom peptide chain:</p>
+                    <div id="peptide-chain" class="flex flex-wrap items-center gap-2 min-h-[40px] p-3 bg-surface-container-lowest rounded-lg border border-dashed border-outline-variant">
+                        <span class="text-xs text-outline italic">No chain built yet</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="addAminoAcid('Lys')" class="px-2.5 py-1 bg-primary text-on-primary font-bold text-xs rounded hover:opacity-90">Add Lysine (Lys)</button>
+                        <button onclick="addAminoAcid('Gly')" class="px-2.5 py-1 bg-primary text-on-primary font-bold text-xs rounded hover:opacity-90">Add Glycine (Gly)</button>
+                        <button onclick="addAminoAcid('His')" class="px-2.5 py-1 bg-primary text-on-primary font-bold text-xs rounded hover:opacity-90">Add Histidine (His)</button>
+                        <button onclick="clearChain()" class="px-2.5 py-1 bg-error-container text-error font-bold text-xs rounded hover:opacity-90">Clear</button>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "How are peptides different from proteins?", a: "Peptides are shorter (under 50 amino acids), whereas proteins are larger folded structures (typically over 50 amino acids)." },
+                { q: "Do peptides occur naturally?", a: "Yes, human gastric juices, collagen, and hormones contain naturally occurring peptide structures." }
+            ]
+        },
+        2: {
+            title: "2. Research Peptides Explained",
+            time: "2 min read",
+            difficulty: "Beginner",
+            icon: "gavel",
+            summary: "Research peptides are synthesized chemical compounds sold exclusively for laboratory experimentation. They are designated as 'Research Use Only' because they lack FDA therapeutic approval.",
+            whyItMatters: ["✓ Under investigation", "✓ Laboratory testing focus", "✓ Strictly non-human use"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Regulatory Parameters Comparison</p>
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant space-y-1">
+                            <p class="font-bold text-primary">Research Peptides</p>
+                            <p class="text-on-surface-variant">Intended for in-vitro lab studies, cellular binding analyses, and quality-controlled tests.</p>
+                        </div>
+                        <div class="p-3 bg-error-container/10 rounded-lg border border-error/20 space-y-1">
+                            <p class="font-bold text-error">Therapeutic Drugs</p>
+                            <p class="text-on-surface-variant">Cleared by regulatory agencies for patient prescription, human consumption, and clinical use.</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Can research peptides be prescribed?", a: "No. Because they are not FDA-approved drugs, they cannot be prescribed or administered for therapeutic purposes." }
+            ]
+        },
+        3: {
+            title: "3. What's Inside the Vial?",
+            time: "1 min read",
+            difficulty: "Beginner",
+            icon: "ac_unit",
+            summary: "Vials contain freeze-dried (lyophilized) peptide powder. Because active compounds are measured in milligrams (mg), the volume inside the glass looks tiny and vacuum-packed.",
+            whyItMatters: ["✓ Stable freeze-dried cake", "✓ Milligram precision", "✓ Protects peptide bonds"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl text-center space-y-4">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Visual Vial Comparison</p>
+                    <div class="flex justify-center gap-6">
+                        <div class="space-y-1">
+                            <div class="w-12 h-20 bg-surface-container-lowest border-2 border-outline-variant rounded-xl mx-auto flex items-end p-1 relative shadow-inner">
+                                <div class="w-full h-4 bg-emerald-500/20 border-t border-emerald-500/30 rounded-lg"></div>
+                                <div class="absolute inset-0 flex items-center justify-center text-[10px] text-emerald-800 font-bold">Cake</div>
+                            </div>
+                            <p class="text-[10px] font-bold text-on-surface-variant">Lyophilized Cake</p>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="w-12 h-20 bg-surface-container-lowest border-2 border-outline-variant rounded-xl mx-auto flex items-end p-1 relative shadow-inner">
+                                <div class="w-full h-12 bg-primary/20 border-t border-primary/30 rounded-lg"></div>
+                                <div class="absolute inset-0 flex items-center justify-center text-[10px] text-primary font-bold">Liquid</div>
+                            </div>
+                            <p class="text-[10px] font-bold text-on-surface-variant">Reconstituted</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Why is the powder cake loose in some vials?", a: "Shipping vibrations can break the freeze-dried cake structure. This is normal and does not affect the peptide's weight or quality." }
+            ]
+        },
+        4: {
+            title: "4. Understanding BAC Water",
+            time: "2 min read",
+            difficulty: "Beginner",
+            icon: "water_drop",
+            summary: "Bacteriostatic Water (BAC) is sterile water containing 0.9% benzyl alcohol. This alcohol acts as a preservative to suppress or halt bacterial contamination.",
+            whyItMatters: ["✓ Benzyl alcohol preservative", "✓ Suppresses contamination", "✓ Multi-use vial integrity"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Solution Composition Check</p>
+                    <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant flex justify-between items-center text-xs">
+                        <div>
+                            <p class="font-bold text-on-surface">Benzyl Alcohol Preservative</p>
+                            <p class="text-on-surface-variant text-[10px]">Suppresses bacterial growth over multiple uses</p>
+                        </div>
+                        <span class="text-emerald-600 font-bold text-sm">0.9%</span>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Can I use sterile saline instead?", a: "Sterile saline lacks benzyl alcohol. Without it, the solution is single-use only and will breed bacteria quickly after opening." }
+            ]
+        },
+        5: {
+            title: "5. Reconstitution Flow",
+            time: "3 min read",
+            difficulty: "Beginner",
+            icon: "biotech",
+            summary: "Reconstitution is the process of adding sterile BAC water to lyophilized powder. It must be done slowly down the vial wall to prevent impact damage to the peptide structure.",
+            whyItMatters: ["✓ Slow wall injection", "✓ Gentle palm rolling", "✓ Zero direct spraying"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3 text-center">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Visual Mixing Steps</p>
+                    <div class="grid grid-cols-3 gap-2 text-[10px]">
+                        <div class="p-2 bg-surface-container-lowest border border-outline-variant rounded-lg space-y-1">
+                            <span class="w-5 h-5 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto font-bold">1</span>
+                            <p class="font-bold">Sanitize Stopper</p>
+                        </div>
+                        <div class="p-2 bg-surface-container-lowest border border-outline-variant rounded-lg space-y-1">
+                            <span class="w-5 h-5 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto font-bold">2</span>
+                            <p class="font-bold">Inject Slowly</p>
+                        </div>
+                        <div class="p-2 bg-surface-container-lowest border border-outline-variant rounded-lg space-y-1">
+                            <span class="w-5 h-5 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto font-bold">3</span>
+                            <p class="font-bold">Gently Swirl</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Why shouldn't I shake the vial?", a: "Peptides are delicate amino chains bound by weak chemical links. Rough shaking can sever these links and degrade the peptide." }
+            ]
+        },
+        6: {
+            title: "6. Dosing & Concentration",
+            time: "3 min read",
+            difficulty: "Intermediate",
+            icon: "calculate",
+            summary: "Concentration is mass divided by volume. Adding more BAC water dilutes the solution, but the absolute mass (milligrams) of peptide in the vial remains identical.",
+            whyItMatters: ["✓ Mass vs volume logic", "✓ Easy dilution calculation", "✓ Direct conversion to mcg"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-4">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Interactive Dilution Slider</p>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-[10px] font-bold text-on-surface-variant flex justify-between">
+                                <span>Peptide Vial Mass:</span>
+                                <span class="text-primary font-mono">10 mg</span>
+                            </label>
+                        </div>
+                        <div>
+                            <label class="text-[10px] font-bold text-on-surface-variant flex justify-between">
+                                <span>BAC Water Added:</span>
+                                <span id="les-water-label" class="text-primary font-mono">2.0 mL</span>
+                            </label>
+                            <input id="les-water-slider" type="range" min="1" max="4" step="1" value="2" oninput="runLessonCalc()" class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary mt-1">
+                        </div>
+                        <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant text-center space-y-1">
+                            <p class="text-[10px] text-outline uppercase font-bold">Concentration Result</p>
+                            <p id="les-calc-result" class="text-lg font-black text-primary font-mono">5.0 mg / mL</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Does a higher concentration change the effect?", a: "No. It only changes the liquid volume needed to extract the same microgram amount." }
+            ]
+        },
+        7: {
+            title: "7. Understanding Syringes",
+            time: "2 min read",
+            difficulty: "Intermediate",
+            icon: "colorize",
+            summary: "Syringes are marked in units. On a standard 1 mL syringe, 100 units equal 1.0 mL of liquid, meaning 10 units represent exactly 0.10 mL.",
+            whyItMatters: ["✓ Precise microgram extraction", "✓ Unit to mL conversions", "✓ Fine needle gauges"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Syringe Measurement Visualizer</p>
+                    <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant space-y-2">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-on-surface">Standard 100-Unit Syringe (1.0 mL)</span>
+                        </div>
+                        <div class="w-full h-8 bg-surface-container rounded-lg relative overflow-hidden border border-outline-variant flex items-center px-1">
+                            <div id="syringe-fill-bar" class="h-6 bg-primary/20 rounded-md transition-all duration-300" style="width: 50%;"></div>
+                            <span id="syringe-fill-label" class="absolute inset-0 flex items-center justify-center text-xs font-bold text-primary font-mono">50 Units = 0.50 mL</span>
+                        </div>
+                        <input id="les-syringe-slider" type="range" min="10" max="100" step="10" value="50" oninput="runLessonSyringe()" class="w-full h-1.5 bg-surface-container rounded-lg appearance-none cursor-pointer accent-primary mt-1">
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "What needle size is best?", a: "Thin 31G or 30G needles are commonly selected in laboratory protocols to minimize stoppers' rubber coring." }
+            ]
+        },
+        8: {
+            title: "8. Storage Rules",
+            time: "2 min read",
+            difficulty: "Beginner",
+            icon: "kitchen",
+            summary: "Lyophilized powder stays stable at room temperature but reconstituted liquid must be refrigerated at 2-8°C to maintain stability.",
+            whyItMatters: ["✓ Stable dry shelf life", "✓ Cold-chain preservation", "✓ Beyond-use window compliance"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Storage Guidelines Timeline</p>
+                    <div class="space-y-2 text-xs">
+                        <div class="flex justify-between items-center p-2.5 bg-surface-container-lowest border-l-4 border-l-emerald-600 rounded">
+                            <span class="font-bold">Lyophilized Powder</span>
+                            <span class="text-on-surface-variant font-mono">Up to 24 Months (Cold)</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2.5 bg-surface-container-lowest border-l-4 border-l-primary rounded">
+                            <span class="font-bold">Reconstituted Liquid</span>
+                            <span class="text-on-surface-variant font-mono">Refrigerate (2-8°C)</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Can I freeze reconstituted peptides?", a: "No. Repeated freeze-thaw cycles degrade mixed liquid peptide structures quickly. Only store dry powder in the freezer." }
+            ]
+        },
+        9: {
+            title: "9. Reading a COA",
+            time: "3 min read",
+            difficulty: "Intermediate",
+            icon: "assignment",
+            summary: "A Certificate of Analysis (COA) verifies a batch's purity, identity, and quantity using HPLC and Mass Spectrometry analysis from third-party labs.",
+            whyItMatters: ["✓ Purity verification", "✓ Identity validation", "✓ Independent lab checks"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">HPLC COA Checkpoints</p>
+                    <div class="grid grid-cols-3 gap-2 text-center text-[10px]">
+                        <div class="p-2 bg-emerald-500/10 border border-emerald-500/20 text-emerald-800 rounded">
+                            <p class="font-bold">Purity</p>
+                            <p class="font-mono text-xs mt-1">99%+</p>
+                        </div>
+                        <div class="p-2 bg-primary/10 border border-primary/20 text-primary rounded">
+                            <p class="font-bold">Identity</p>
+                            <p class="font-mono text-xs mt-1">Mass Spec</p>
+                        </div>
+                        <div class="p-2 bg-surface-container-lowest border border-outline-variant rounded">
+                            <p class="font-bold">Quantity</p>
+                            <p class="font-mono text-[9px] mt-1">Milligrams</p>
+                        </div>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "How often are batches tested?", a: "Every single production batch should be independently tested before distribution to guarantee authenticity." }
+            ]
+        },
+        10: {
+            title: "10. Batch Testing Importance",
+            time: "2 min read",
+            difficulty: "Beginner",
+            icon: "verified",
+            summary: "Third-party lab testing ensures research peptides are free from heavy metals, synthesis impurities, and organic contaminants.",
+            whyItMatters: ["✓ Quality assurance checks", "✓ Heavy metal screenings", "✓ Prevents research skewing"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl text-center space-y-3 text-xs">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider">Third-Party Lab Screening</p>
+                    <div class="flex justify-around items-center">
+                        <span class="flex items-center gap-1 font-bold text-emerald-700"><span class="material-symbols-outlined text-[16px]">check_circle</span> HPLC Verified</span>
+                        <span class="flex items-center gap-1 font-bold text-emerald-700"><span class="material-symbols-outlined text-[16px]">check_circle</span> Zero Contamination</span>
+                    </div>
+                </div>
+            `,
+            faqs: [
+                { q: "Why is lab validation critical?", a: "Even 1% impurity can skew research results or cause unpredictable chemical reactions during cell studies." }
+            ]
+        },
+        11: {
+            title: "11. Our Quality Process",
+            time: "2 min read",
+            difficulty: "Beginner",
+            icon: "workspace_premium",
+            summary: "Future Human utilizes dedicated batch lot management and third-party laboratory verification to secure every chemical sequence we distribute.",
+            whyItMatters: ["✓ Custom lot synthesis", "✓ HPLC purity validated", "✓ Nitrogen-vacuum sealed"],
+            visualHtml: `
+                <div class="bg-surface-container-low border border-outline-variant p-5 rounded-xl space-y-3 text-xs leading-relaxed text-on-surface-variant">
+                    <p class="text-xs font-bold text-outline uppercase tracking-wider text-center">Batch Processing Flow</p>
+                    <ol class="list-decimal pl-5 space-y-1 text-[11px]">
+                        <li>Custom lot synthesis and nitrogen flush.</li>
+                        <li>Independent HPLC testing for 99%+ purity.</li>
+                        <li>Temperature-monitored, secure packaging and delivery.</li>
+                    </ol>
+                </div>
+            `,
+            faqs: [
+                { q: "Where can I find batch results?", a: "Visit our dedicated commitment pages or scan the QR code on your documentation pack to access testing files." }
+            ]
+        }
+    };
+
+    let currentLessonId = 1;
+
+    function openLesson(id) {
+        currentLessonId = id;
+        const lesson = lessonsData[id];
+        if (!lesson) return;
+
+        // Populate course player fields
+        document.getElementById('player-title').innerText = lesson.title;
+        document.getElementById('player-time').innerHTML = `<span class="material-symbols-outlined text-[14px]">schedule</span> ${lesson.time}`;
+        document.getElementById('player-difficulty').innerText = lesson.difficulty;
+        document.getElementById('player-icon').innerText = lesson.icon;
+
+        // Build Lesson Body html
+        let whyItMattersHtml = lesson.whyItMatters.map(point => `
+            <div class="p-3 bg-surface-container-lowest rounded-lg border border-outline-variant text-center font-bold text-xs">
+                ${point}
+            </div>
+        `).join('');
+
+        let faqsHtml = lesson.faqs.map(faq => `
+            <details class="group bg-surface-container-lowest border border-outline-variant rounded-xl p-4 transition-all duration-300">
+                <summary class="flex justify-between items-center font-bold text-xs text-on-surface cursor-pointer select-none">
+                    <span>${faq.q}</span>
+                    <span class="material-symbols-outlined text-outline group-open:rotate-180 transition-transform duration-200">expand_more</span>
+                </summary>
+                <div class="mt-2 text-[11px] text-on-surface-variant leading-relaxed">
+                    ${faq.a}
+                </div>
+            </details>
+        `).join('');
+
+        let bodyHtml = `
+            <!-- One Minute Summary -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-outline">One Minute Summary</h4>
+                <p class="text-sm text-on-surface-variant leading-relaxed font-semibold">
+                    ${lesson.summary}
+                </p>
+            </div>
+
+            <!-- Why It Matters -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-outline">Why It Matters</h4>
+                <div class="grid grid-cols-3 gap-3">
+                    ${whyItMattersHtml}
+                </div>
+            </div>
+
+            <!-- Visual Explanation -->
+            <div class="space-y-2">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-outline">Visual Explanation</h4>
+                <div id="visual-interaction-container">
+                    ${lesson.visualHtml}
+                </div>
+            </div>
+
+            <!-- Common Questions -->
+            <div class="space-y-3">
+                <h4 class="text-xs font-bold uppercase tracking-wider text-outline">Common Questions</h4>
+                <div class="space-y-2">
+                    ${faqsHtml}
+                </div>
+            </div>
+        `;
+
+        document.getElementById('player-body').innerHTML = bodyHtml;
+
+        // Show player
+        const player = document.getElementById('course-player');
+        player.classList.remove('hidden');
+        player.style.opacity = '1';
+
+        // Update footer buttons
+        document.getElementById('player-prev-btn').disabled = (id === 1);
+        document.getElementById('player-prev-btn').style.opacity = (id === 1) ? '0.5' : '1';
+        
+        const nextBtn = document.getElementById('player-next-btn');
+        if (id === 11) {
+            nextBtn.innerText = "Finish Journey";
+            nextBtn.classList.remove('bg-primary');
+            nextBtn.classList.add('bg-emerald-600');
+        } else {
+            nextBtn.innerText = "Next Lesson";
+            nextBtn.classList.add('bg-primary');
+            nextBtn.classList.remove('bg-emerald-600');
+        }
+
+        // Run local scripts if needed
+        if (id === 6) {
+            runLessonCalc();
+        } else if (id === 7) {
+            runLessonSyringe();
+        }
+    }
+
+    function closeCoursePlayer() {
+        const player = document.getElementById('course-player');
+        player.style.opacity = '0';
+        setTimeout(() => {
+            player.classList.add('hidden');
+        }, 300);
+    }
+
+    function nextLesson() {
+        if (currentLessonId < 11) {
+            openLesson(currentLessonId + 1);
+        } else {
+            closeCoursePlayer();
+            alert("Congratulations! You have completed the guided learning path for Peptide Basics.");
+        }
+    }
+
+    function prevLesson() {
+        if (currentLessonId > 1) {
+            openLesson(currentLessonId - 1);
+        }
+    }
+
+    function startGuidedLearning() {
+        openLesson(1);
+    }
+
+    // Interactive Amino Acid chain script
+    let aminoChain = [];
+    function addAminoAcid(name) {
+        aminoChain.push(name);
+        renderChain();
+    }
+    function clearChain() {
+        aminoChain = [];
+        renderChain();
+    }
+    function renderChain() {
+        const container = document.getElementById('peptide-chain');
+        if (aminoChain.length === 0) {
+            container.innerHTML = `<span class="text-xs text-outline italic">No chain built yet</span>`;
+            return;
+        }
+        container.innerHTML = aminoChain.map((aa, idx) => `
+            <span class="flex items-center">
+                <span class="px-2 py-1 bg-primary text-on-primary font-mono text-[10px] font-bold rounded shadow-sm">${aa}</span>
+                ${idx < aminoChain.length - 1 ? '<span class="mx-1 text-outline font-bold">→</span>' : ''}
+            </span>
+        `).join('');
+    }
+
+    // Concentration slider script inside lesson 6
+    function runLessonCalc() {
+        const slider = document.getElementById('les-water-slider');
+        const water = parseFloat(slider.value);
+        document.getElementById('les-water-label').innerText = `${water.toFixed(1)} mL`;
+        
+        const mass = 10; // Fixed mass for lesson
+        const concentration = mass / water;
+        document.getElementById('les-calc-result').innerText = `${concentration.toFixed(1)} mg / mL`;
+    }
+
+    // Syringe slider script inside lesson 7
+    function runLessonSyringe() {
+        const slider = document.getElementById('les-syringe-slider');
+        const units = parseInt(slider.value);
+        const ml = units / 100;
+        
+        document.getElementById('syringe-fill-bar').style.width = `${units}%`;
+        document.getElementById('syringe-fill-label').innerText = `${units} Units = ${ml.toFixed(2)} mL`;
+    }
+
+    // Live calculators in page (Concentration & Syringe)
+    function runWidgetCalc() {
+        const vialQty = parseFloat(document.getElementById('widget-vial-qty').value);
+        const waterVol = parseFloat(document.getElementById('widget-water-vol').value);
+        
+        document.getElementById('vial-qty-label').innerText = `${vialQty} mg`;
+        document.getElementById('water-vol-label').innerText = `${waterVol} mL`;
+        
+        const result = vialQty / waterVol;
+        document.getElementById('widget-result').innerText = `${result.toFixed(1)} mg / mL`;
+    }
+
+    function runSyringeWidget() {
+        const units = parseInt(document.getElementById('widget-syringe-units').value);
+        document.getElementById('syringe-units-label').innerText = `${units} Units`;
+        
+        const ml = units / 100;
+        document.getElementById('syringe-vol-result').innerText = `${ml.toFixed(2)} mL`;
+    }
+
+    // Search lessons filter
+    function filterLessons() {
+        const query = document.getElementById('lesson-search').value.toLowerCase();
+        document.querySelectorAll('.lesson-card').forEach(card => {
+            const indexData = card.getAttribute('data-title').toLowerCase();
+            const title = card.querySelector('h3').innerText.toLowerCase();
+            if (indexData.includes(query) || title.includes(query)) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
         });
-    </script>
-</body></html>
+    }
+
+    function applySearch(term) {
+        document.getElementById('lesson-search').value = term;
+        filterLessons();
+        const element = document.getElementById('journey');
+        element.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Scroll header background behavior
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('sticky-nav-bar');
+        if (window.scrollY > 150) {
+            nav.classList.add('sticky-nav-active');
+        } else {
+            nav.classList.remove('sticky-nav-active');
+        }
+    });
+
+    // Initialize widgets on load
+    window.addEventListener('DOMContentLoaded', () => {
+        runWidgetCalc();
+        runSyringeWidget();
+    });
+</script>
+
+<script>
+    // Trigger Research Access Modal on Contact CTAs
+    document.querySelectorAll('.inquire-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('research-access-modal').showModal();
+        });
+    });
+</script>
+</body>
+</html>
